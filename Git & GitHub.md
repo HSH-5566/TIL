@@ -32,7 +32,7 @@
         - **git pull :** remote repository로 부터 local repository로 내용을 가져옴
         - **git clone :** .git을 포함한 remote repository의 파일들을 local repository에 복사
             
-            ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%201.png)
+            ![Untitled 1](https://user-images.githubusercontent.com/80798580/142413422-acd95303-5da3-4085-a9ac-a3d9d51f6165.png)
             
     - 협업
         - **git branch :** 독립된 working directory으로 프로젝트 참여자마다 브랜치를 가져서 독립된 작업 공간 가능, 테스트 및 백업 등의 용도 가능
@@ -42,20 +42,20 @@
         - local storage : git init, git add, git commit
             - **git init**
                 
-                ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%202.png)
+                ![Untitled 2](https://user-images.githubusercontent.com/80798580/142413441-c92a3811-e470-4506-b212-fd68a51eadab.png)
                 
                 - working directory : .git 폴더의 상위폴더 → redux-study
                 - .git 폴더 : working directory 에 존재하는 파일들의 버전을 관리
             - **git status**
                 
-                ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%203.png)
+                ![Untitled 3](https://user-images.githubusercontent.com/80798580/142413457-cb90a09f-e632-44af-8d52-1d93dd691867.png)
                 
                 - "추적되지 않은 파일(**Untracked files**) 목록"  출력
                 - 최근에 등록( commit )된 버전과 비교하여 working directory에 새로운 파일
                     - Git은 처음 보는 파일이므로 추적하고 있지 않은 파일
             - **git add .**
                 
-                ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%204.png)
+                ![Untitled 4](https://user-images.githubusercontent.com/80798580/142413467-41fba2bb-ff29-4f42-b793-7e3927dbdf98.png)
                 
                 - 점(.)은 모든 것(all), 즉 working directory 전체를 의미
                     - 비권장 ~> 중요한 설정 파일과 IDE에서 제공하는 파일들까지 모두 add할 필요는 없기 때문 그런 파일들은 .gitignore로 관리 필요
@@ -65,7 +65,7 @@
                 - Staging area에서만 제거하고 working directory는 유지하는 명령어
             - **git commit -m "msg"**
                 
-                ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%205.png)
+                ![Untitled 5](https://user-images.githubusercontent.com/80798580/142413480-0b6f4687-db36-4f68-9e50-9e5950708b07.png)
                 
                 - m 옵션을 사용해서 commit 메시지를 간단하게 작성
                 - commit을 하면 현재 staging area의 내용을 local repository에 저장하고, **하나의 버전으로 등록**
@@ -89,7 +89,7 @@
             - **git push**
                 - `git push { 원격 저장소명 } { 원격 브랜치명 }`
                     
-                    ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%206.png)
+                    ![Untitled 6](https://user-images.githubusercontent.com/80798580/142413492-bec73d34-0231-496e-b920-dd0d1182611a.png)
                     
                     - local repository의 파일들을 remote repository에 업로드
                     - git init 명령어를 실행하면 default 브랜치로 **master** 브랜치를 생성
@@ -170,9 +170,9 @@
                     - 필요하면 다시 remote repository에서 가져올 수 있음
                     - remote repository에서 삭제 필요시?
                         
-                        ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%207.png)
+                        ![Untitled 7](https://user-images.githubusercontent.com/80798580/142413532-43eb6cdc-4f4c-4f63-a398-fecca49aac04.png)
                         
-                        ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%208.png)
+                        ![Untitled 8](https://user-images.githubusercontent.com/80798580/142413545-ba9ccbec-5a6f-41f9-aedf-6cf57fd53192.png)
                         
                 - `git branch {새브랜치명} {원격브랜치}/{원격브랜치명}`
                     - remote repository의 특정 브랜치를 가져와서 새로운 브랜치
@@ -192,7 +192,7 @@
                             - Fast-forward 메시지 출력
                                 - merge 할 브랜치( 대상 브랜치, test1 브랜치 )의 commit이 현재 branch( 기준 브랜치, master 브랜치 )의 commit 보다 앞서가 있기 때문에, 기준 브랜치의 커밋을 대상 브랜치 commit으로 이동
                                     
-                                    ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%209.png)
+                                    ![Untitled 9](https://user-images.githubusercontent.com/80798580/142413559-a392da38-6376-422c-aa07-51d1311aed17.png)
                                     
                                 - `master 브랜치의 HEAD를 test1 브랜치의 HEAD로 이동하겠다`
                 - **충돌이 발생하는 병합**
@@ -210,7 +210,7 @@
                         - `git checkout master` → `git merge test1`
                             - merge 명령어를 실행하면 충돌이 발생했다면서, merge를 진행X
                                 
-                                ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2010.png)
+                                ![Untitled 10](https://user-images.githubusercontent.com/80798580/142413570-dc72a29f-365d-4e07-bd48-254c7ddecebb.png)
                                 
                                 - master 브랜치와 test1 브랜치의 커밋횟수가 같고,
                                 - master 브랜치와 test1 브랜치는 <div> 요소의 class 속성 값을 각각 다른 값으로 동시에 수정
@@ -228,7 +228,7 @@
                     - **-no-ff**
                         - fast-forward 관계에서 merge를 하면 merge 커밋이 생략되는데, --no-ff 옵션을 주면 merge할 때 커밋을 생성
                             
-                            ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2011.png)
+                            ![Untitled 11](https://user-images.githubusercontent.com/80798580/142413577-4f0a7b62-2bfd-40c3-915a-abf9ba8127ca.png)
                             
         - reset, revert
             - git reset : 특정 커밋으로 되돌아갈 수 있는데, 되돌린 버전 이후의 버전들은 **히스토리에서 삭제**
@@ -249,37 +249,37 @@
                     - working directory 상태로 돌아가게 됨
                     - **수정된 내용은 유지한 채로 add 이전 상태로 되돌린 것**
                         
-                        ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2012.png)
+                        ![Untitled 12](https://user-images.githubusercontent.com/80798580/142413592-a4f6513c-db6d-499b-8b90-379c63e39487.png)
                         
                     
             - **reset으로 되돌리기 - 다양한 옵션으로 버전 되돌리기**
                 - 커밋된 4개의 msg
                     
-                    ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2013.png)
+                    ![Untitled 13](https://user-images.githubusercontent.com/80798580/142413600-c98ec086-f805-4f9c-a0d8-caa37bd46558.png)
                     
                 - **-hard 옵션**
                     - `git reset --hard {버전명}`
                         
-                        ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2014.png)
+                        ![Untitled 14](https://user-images.githubusercontent.com/80798580/142413607-7b6ac4c7-bef2-4e9e-876a-44266dd9e115.png)
                         
                         - 커밋이력 삭제 & working directory 깔끔
                 - **옵션 없이**
                     - `git reset {버전명}`
                         
-                        ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2015.png)
+                        ![Untitled 15](https://user-images.githubusercontent.com/80798580/142413617-84951e6f-ee4e-4b4c-88e1-5a1eafe63eb3.png)
                         
                         - 커밋이력 삭제 & working directory 내역 남음
                 - **--soft 옵션**
                     - `git reset --soft {버전명}`
                         
-                        ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2016.png)
+                        ![Untitled 16](https://user-images.githubusercontent.com/80798580/142413636-3556ab86-ddba-4df1-984a-4e10a556247d.png)
                         
                         - 커밋이력 삭제 & add까지 되어 있음
                     
             - **revert로 되돌리기**
                 - `git revert {버전명}`
                     
-                    ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2017.png)
+                    ![Untitled 17](https://user-images.githubusercontent.com/80798580/142413655-be751f99-4564-47f6-81ea-107e3d86b12c.png)
                     
                     - evert 명령을 실행할 때, 충돌이 발생
                         - reset의 경우는 커밋이력이 사라지기 때문에 충돌이 발생하지 않음
@@ -311,11 +311,11 @@
                 - **-interactive** 옵션을 사용하면 local에서 **히스토리를 조작가능**
             - **rebase 병합 방식 ( Merge vs Rebase )**
                 
-                ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2018.png)
+                ![Untitled 18](https://user-images.githubusercontent.com/80798580/142413691-a760e426-f473-4571-bffc-78284792cd5d.png)
                 
                 - merge방식 : 총 4개의 커밋이력
                 
-                ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2019.png)
+                ![Untitled 19](https://user-images.githubusercontent.com/80798580/142413699-89638e2c-de20-48a7-9123-d6174f993a4c.png)
                 
                 - rebase방식 : 총 3개의 커밋이력
                     - **자신의 마지막 커밋 기록을 없앤 후, 병합 후에 작성한 커밋 기록을 남김**
@@ -323,16 +323,16 @@
                 - 불필요한 커밋 이력을 제거해서 필요한 커밋들만 남길 수 있음 & 커밋에서 작업했던 내용들은 그대로 유지
                 - **초기 커밋이력 히스토리**
                     
-                    ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2020.png)
+                    ![Untitled 20](https://user-images.githubusercontent.com/80798580/142413711-38548de0-ed6f-485b-9b2f-d15249f3bcc2.png)
                     
                 - **rebase --interactive {커밋ID}**
                     - `git rebase --interactive 2462291`
                         
-                        ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2021.png)
+                        ![Untitled 21](https://user-images.githubusercontent.com/80798580/142413756-aa6f3ba2-efc4-4b4a-b4c8-12a3de1cd150.png)
                         
                         - vi 편집기 열림
                         
-                        ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2022.png)
+                        ![Untitled 22](https://user-images.githubusercontent.com/80798580/142413812-18509aae-f84d-437a-af8b-7d5bba52664f.png)
                         
                         - **squash : 이전 커밋과 합쳐서 커밋을 하도록 실행**
                         - 6837557와 94af9ac를 병합할 때, 6837557의 커밋 내용을 유지 & 94af9ac와 두번째 커밋( 90b3dc4 )를 병합할 때, 94af9ac의 커밋 내용을 유지
@@ -342,17 +342,17 @@
                 - **커밋 메시지 작성**
                     - 수정한 후 편집기를 저장하고 종료 ( **esc** + **:wq!** + **enter** )
                         
-                        ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2023.png)
+                        ![Untitled 23](https://user-images.githubusercontent.com/80798580/142413823-02702ca7-7c16-4eeb-9601-f6a8edadb07b.png)
                         
                         - vi편집기 열림 : 커밋 메시지를 어떻게 남길 것인지를 명시
                             
-                            ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2024.png)
+                            ![Untitled 24](https://user-images.githubusercontent.com/80798580/142413839-93e0f15f-b64e-49b2-8e05-a367434109a6.png)
                             
                         - 주석 처리(#)가 되어 있지 않은 메시지들이 커밋 메시지에 기록
                         - 메시지를 안지워도 local repository에서 log를 확인시 메시지가 보이지X →github에 push를 해보면, 메시지들이 남음
                 - **히스토리 확인**
                     
-                    ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2025.png)
+                    ![Untitled 25](https://user-images.githubusercontent.com/80798580/142413851-386d251e-b994-45fd-81c0-4a24a6e9bef5.png)
                     
                     - 히스토리가 잘 지워졌는지 로그를 확인
         - log, checkout, stash, cherry-pick
@@ -360,7 +360,7 @@
                 - `git log --oneline` : 로그를 한줄씩 간단하게 표현
                 - `git log --oneline --graph` : 로그를 그래프로 표현
                     
-                    ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2026.png)
+                    ![Untitled 26](https://user-images.githubusercontent.com/80798580/142413860-b14496a6-ccca-4ed1-abb3-705ae9dcceef.png)
                     
                 - `git log --merges` : merge된 log만 필터링
                 - `git reflog` : 실행한 모든 명령어의 로그 목록
@@ -377,7 +377,7 @@
                     - 이 때 detached from ~~ 의 이름으로 새로운 브랜치가 생성
                     - 이름을 바꾸기 위해서는 `git checkout -b { 브랜치명 }`
                         
-                        ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2027.png)
+                        ![Untitled 27](https://user-images.githubusercontent.com/80798580/142413877-d85f9c68-633d-4ef2-a973-1b95ef9fb883.png)
                         
             - **stash**
                 - `git stash` : 현재 작업 내용을 일시적으로 저장, 최근 커밋 상태로 환경 변경
@@ -442,7 +442,7 @@
         - **A는 환경 설정을 마친 프로젝트 파일을 Github에 올립니다.**
             - Github에 repository를 생성하여 B, C를 collaborator로 추가
                 
-                ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2028.png)
+                ![Untitled 28](https://user-images.githubusercontent.com/80798580/142413897-cc31eb92-1201-4bb9-b6f6-36d4dfc26aa0.png)
                 
                 - B, C가 해당 프로젝트에 pull, push 할 권한 생성
             - A는 각종 기본 라이브러리들을 추가해서 초기 프로젝트를 셋팅 후 깃헙에 업로드
@@ -467,9 +467,9 @@
         - **C의 코드에서 버그가 발생하여 이전 버전으로 돌아가야 합니다.**
             - push를 한 상황이고, 버그가 발생하기까지 총 5번의 commit을 했다고 가정
                 
-                ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2029.png)
+                ![Untitled 29](https://user-images.githubusercontent.com/80798580/142413916-edb460a0-e4c2-4810-8f45-a3df9b5ef087.png)
                 
-                ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2030.png)
+                ![Untitled 30](https://user-images.githubusercontent.com/80798580/142413927-b28bc39c-d845-4c9d-a129-d32f90414e06.png)
                 
                 - 깃허브에서 commit 이력 확인 가능 / f37a6b7 버전으로 돌아가려 함
                     - `git log --online -10` : log통해 commit 이력 확인 가능
@@ -477,15 +477,15 @@
                 - `git add .` → `git commit -m "기능2로 백업"` → `git push origin brchC`
                 - revert : 이력을 남기고 버전을 되돌리는 명령어이므로 기능3, 4, 5에 대한 커밋 이력은 남아있음
                     
-                    ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2031.png)
+                    ![Untitled 31](https://user-images.githubusercontent.com/80798580/142413940-53dd2806-57bd-4311-92fc-53340452d222.png)
                     
 - 실제 수행
     
-    ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2032.png)
+    ![Untitled 32](https://user-images.githubusercontent.com/80798580/142413976-43df6adf-89f3-4735-a1ca-9ca7e0dc575f.png)
     
-    ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2033.png)
+    ![Untitled 33](https://user-images.githubusercontent.com/80798580/142413987-8d4b73f1-407d-4d30-80c0-89d0c50ecd42.png)
     
-    ![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled%2034.png)
+    ![Untitled 34](https://user-images.githubusercontent.com/80798580/142413998-e76e4461-a0df-433a-96f9-293cba0f6fb7.png)
     
     - 정상적으로 commit과 remote까진 수행했으나 push에서 오류가 발생
         - GitHub에 현재 존재하는 readme파일 때문에 오류 발생
