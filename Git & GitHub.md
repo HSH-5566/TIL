@@ -8,7 +8,7 @@
 
 </aside>
 
-![Untitled](Git%20&%20GitHub%2008767406b52341bfabf429abf49645cd/Untitled.png)
+![Untitled](https://user-images.githubusercontent.com/80798580/142413341-dbe4c3eb-a704-46f2-ac4e-b1598a73ca7d.png)
 
 ---
 
