@@ -1,9 +1,12 @@
 # TIL
 Today I Learned
 
-FrontEnd
+Coding Test
+-Python
+
+FrontEnd Study
 -Typescript
 -Redux
 
-Another
+Another Study
 -Git/GitHub
