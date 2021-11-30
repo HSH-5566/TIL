@@ -13,8 +13,8 @@
 ### stack : 지역변수, 함수, 메서드
 ### heap : new 연산자 통해 동적할당 된 객체저장, 가비지 컬렉션의해 관리
 # Primitive type / Referenece type
-# 기본형 : stack 메모리 영역에 실제 값 저장하는 데이터 타입, call by value, byte / short / int / long / float / double / char / boolean
-# 참조형 : 메모리 상에 객체가 있는 위치 저장하는 것, 실제 값은 heap에 저장되고 stack에는 메모리 주소만 저장, call by reference, String / class / interface / new연산자로 정의
+### 기본형 : stack 메모리 영역에 실제 값 저장하는 데이터 타입, call by value, byte / short / int / long / float / double / char / boolean
+### 참조형 : 메모리 상에 객체가 있는 위치 저장하는 것, 실제 값은 heap에 저장되고 stack에는 메모리 주소만 저장, call by reference, String / class / interface / new연산자로 정의
 
 # 가비지 컬렉션
 ### 시스템에서 더 이상 사용않는 동적할당된 메모리 블록 찾아 사용가능한 자원으로 회수하는 것
@@ -26,3 +26,21 @@
 ### 메모리 공간 할당 시 처음 설정된 메모리 공간이 변하지 않는 것
 ### 객체 생성 않고도 사용가능한 필드, 메소드, 객체마다 가질 필요없는 공통 데이터의 경우 static으로 선언
 ### 객체 생성 않고 사용가능하여 인스턴스 필드, 메소드를 내부에서 사용 불가
+# 쓰레드
+### 프로세스 내 실제 작업 수행하는 주체
+### 모든 프로세스는 1개 이상의 쓰레드가 존재
+### 멀티 스레드 프로세스 = 두개 이상의 쓰레드 가지는 프로세스
+# JDBC
+### JAVA에서 DB 종류 관계없이 DB에 쉽게 접근가능하게 하는 API
+### Connection, PreparedStatement, ResultSet 등 여러 클래스 생성 Exception처리해야하는 번거로움 (코드반복, 생상성저하)
+### Spring JDBC : 기존 JDBC 단점 극복, 반복적 작업 대신함
+- ConnectionPool :  DB와 항상 연결되어 있는 객체들, DB와의 연결위해 사용하는 객체
+- DataSource : ConnectionPool 관리객체, 커넥션풀 이용해 연결&반납 작업수행
+- pom.xml에서 dependency 추가
+# Singleton
+### 하나의 클래스에 하나의 인스턴스만 만들어 사용위한 패턴
+### 커넥션풀과 같은 객체는 인스턴스 여러개 생성시 자원낭비이므로 하나만 생성하는 것이 효율적
+### 생성자에 private 접근 제어자 통해 인스턴스 생성 제약 & 단일 객체 반환 가능하도록 정적메소드 지원
+# JDK / SDK
+### JDK : 자바 프로그램 개발도구, 자바 application 구축위한 핵심 플랫폼 구성요소
+### SDK : 개발위한 클래스, 컴파일러, 실행도구, 디버깅툴, 튜토리얼 등을 모아놓은 환경을 제공하는 것
