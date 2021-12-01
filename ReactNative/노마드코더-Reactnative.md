@@ -17,7 +17,7 @@
     - #1) **INTRODUCTION**
         - #1.4 **Installing Requirements**
             
-            ![Untitled](Reactnative%2008c70896e6064654a0ef4d1f2fe85dc4/Untitled.png)
+            ![Untitled](https://user-images.githubusercontent.com/80798580/144238712-5a7544a1-7981-4028-a9de-9f10bb4219da.png)
             
             - react native 구성요소(인프라)
             - android app- Java & android studio / ios app- xcode
@@ -29,12 +29,12 @@
             - app store에 등록시 해당 인프라&js 코드 모두 전달
         - #1.5 **How Does React Native Work**
             
-            ![Untitled](Reactnative%2008c70896e6064654a0ef4d1f2fe85dc4/Untitled%201.png)
+            ![Untitled 1](https://user-images.githubusercontent.com/80798580/144238775-5b99be6f-4259-4051-99d3-9492fbc331da.png)
             
             - react native : code를 ios/ java android code로 번역하는 인터페이스
                 - 브라우저 미존재, bridge 존재
             
-            ![Untitled](Reactnative%2008c70896e6064654a0ef4d1f2fe85dc4/Untitled%202.png)
+            ![Untitled 2](https://user-images.githubusercontent.com/80798580/144238752-68c2a995-c659-48c9-a282-0f48f971bce9.png)
             
             - react native 동작방식(native앱) : js와 OS의 상호작용
                 - 이벤트 발생 → native(android, ios와 같은 OS)가 js에 msg 전송 → js가 msg받아 다른 msg 전송 → native에서 msg받아 UI업데이트
