@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-direction:row;
+}
+.item:nth-child(1) {
+	flex-shrink: 0;
+	width: 100px;
+    align-self: center;
+    order: 2;
+    transform: scale(3);
+    color: red;
+}
+.item:nth-child(2) {
+	flex-grow: 1;
+    order: 3;
+}
+.item:nth-child(3) {
+	flex-grow: 1;
+    order: 1;
+    z-index: 1;
+}
