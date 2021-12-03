@@ -1,4 +1,6 @@
 # CSS의 Flex 속성
+참고 <link>https://studiomeal.com/archives/197
+
 ## Flex(Flexible Box, FlexBox)
 - 레이아웃 배치 전용 기능 <-> float, inline-block : 레이아웃위한 기능아님
 - 구성

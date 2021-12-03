@@ -43,6 +43,53 @@
                 - 앱생성 : expo init app_name
                 - 앱실행 : npm start
                 - 로그인 : expo login
+    
     - #2) **WEATHER APP**
+        - #2.0 **Snack**
+            - [snack.expo.dev](http://snack.expo.dev) : 브라우저에서 react 어플리케이션 만들도록 지원하는 온라인 코드에디터
+        - #2.1 **The Rules of Native**
+            - View 컴포넌트 : react native는 브라우저가 아니므로 div사용불가
+            - Text 컴포넌트: 모든 텍스트를 입력
+            - 일부 style css 사용 불가 ex) border: 1px green solid
+            - StyleSheet.create({}) : 오브젝트 생성, 자동완성 기능 지원
+            - status-bar 컴포넌트 : 상단의 시계, 배터리, 와이파이 등
+                - 화면에 표시되지 않는 컴포넌트
+                - OS와 상호작용위한 컴포넌트
+        - #2.2 **React Native Packages / #**2.3 **Third Party Packages**
+            - [reactnative.dev](http://reactnative.dev) : reactNative에 대한 document 확인 가능
+            - reactNative에서 여러 API 컴포넌트 등 지원 중단
+            - [reactnative.direct](http://reactnative.direct) : third party와 API지원
+            - Expo SDK : expo에서 자체적으로 만든 API, Packages
+                - ~>reactNative에서 여러 API, 컴포넌트 등 지원 중단
+        - #2.4 **Layout System**
+            - 기본적으로 모든 View는 flex
+            - flexDirection 기본값 column
+            - 레이아웃 구성 시 비율 이용 ex) <View style={{flex: 1}}></View>
+                - 부모의 flex비율 따라 자식에게 flex비율 적용
+                    - ex) `<View style={{flex: 1}}>
+                                <View style={{flex: 1}}></View>
+                                <View style={{flex: 1}}></View>
+                        </View>`
+        - #2.5 **Styles /** #2.6 **Styles part Two**
+            - expo console
+                - r : reload
+                - m : 토글바 메뉴
+            - ScrollView : 수직 스크롤이 가능한 View 생성
+                - props
+                    - horizontal : 수평 스크롤로 변경(내부의 View 수평정렬)
+                    - contentContainerStyle : ScrollView 사용 시 ScrollView 스타일 적용할 경우 스style props (style={}) 사용 불가
+                        - contentContainerStyle = {styles.container}
+                    - pagingEnabled : 자유로운 스크롤 방지, 대신 페이지 생성
+                    - showHorizontalScrollIndicator : 스크롤 숨기기
+                        - showHorizontalScrollIndicator = {false}
+                    - indicatorStyle : 스크롤 스타일 변경, iOS에서만 동작
+                        - indicatorStyle = "white"
+            - element inspector : 크롬 개발자 도구와 유사, css 확인가능
+            - Dimensions API : 화면의 크기 가져옴
+                - Dimensions.get('window').width
+                - const {width : WIDTH, height : HEIGHT} = Dimensions.get('window')
+        - #2.6 **Location**
+            - 
+        - #2.7 **Weather**
     - #3) **WORK HARD TRAVEL HARD APP**
     - #4) **PUBLISHING OUR APPS**
