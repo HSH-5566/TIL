@@ -74,7 +74,7 @@
             - expo console
                 - r : reload
                 - m : 토글바 메뉴
-            - ScrollView : 수직 스크롤이 가능한 View 생성
+            - ScrollView : 수직 스크롤이 가능한 View 생성, flex속성 줄필요 없음(Screen보다 커야하므로)
                 - props
                     - horizontal : 수평 스크롤로 변경(내부의 View 수평정렬)
                     - contentContainerStyle : ScrollView 사용 시 ScrollView 스타일 적용할 경우 스style props (style={}) 사용 불가
@@ -86,10 +86,35 @@
                         - indicatorStyle = "white"
             - element inspector : 크롬 개발자 도구와 유사, css 확인가능
             - Dimensions API : 화면의 크기 가져옴
+                - import { Dimensions } from 'react-native';
                 - Dimensions.get('window').width
                 - const {width : WIDTH, height : HEIGHT} = Dimensions.get('window')
-        - #2.6 **Location**
-            - 
-        - #2.7 **Weather**
+        - #2.7 **Location**
+            - Geo Location
+                - `expo install expo-location`
+                - Method
+                    - requestPermissionsAsync() : 유저권한 요청, 더이상 사용X
+                    - requesForegroundtPermissionsAsync(): 앱 사용 중에만 위치추적
+                    - requestBackgroundPermissionsAsync(): 앱 사용외에도 위치추적
+                    - getLastKnownPositionAsync(): 유저 마지막 위치
+                    - getCurrentPositionAsync(): 유저의 현재 위치
+                        - accuracy : 정확도 옵션 1~6
+                    - watchPositionAsync(): 유저 위치 관찰
+                    - geocodeAsync(addr): 주소를 받아서 위도와 경도로 반환
+                    - geocodeAsync(location): 위도 경도를 받아 도시, 구역 반환
+                    - Geofencing메소드: 유저가 특정지역 벗어났을 시 알림
+        - #2.8 **Weather**
+            - openweather API 이용
+                - API key의 경우 서버에 탑재 ~>보안
+                - OneCallAPI: 7일간의 예보
+            - ActivityIndicator: 로딩출력 Component
+        - #2.9 **Recap**
+            - toFix(1) : 소수점 한자리만 갖게 함
+        - #2.10 **Icons**
+            - expo/vector-icons : 아이콘 라이브러리
+            - `import {Fontisto } from '@expo/vector=icons'`
+            - [icons.expo.fyi](http://icons.expo.fyi) : 가능한 아이콘 확인
+            - <Fontisto name="" size={} color="">
+            - ... :  스프레드 연산자 ,ES6 JS문법
     - #3) **WORK HARD TRAVEL HARD APP**
     - #4) **PUBLISHING OUR APPS**
