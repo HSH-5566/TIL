@@ -1,0 +1,21 @@
+# Flux 패턴
+참고링크: https://www.huskyhoochu.com/flux-architecture/
+- 페이스북에서 MVC패턴문제 해결위해 만든 패턴
+- Model이 View변경, View가 Model을 변경하는 양방향 데이터 흐름에서 단방향으로만 데이터 변경할 수 있도록 함
+- Action / Action Creator
+    - 데이터 상태를 변경할 수 있음
+    - action 생성자가 발생한 action의 type과 데이터페이로드를 action 메세지로 묶어 Dispather로 전달
+- Dispatcher
+    - action 메세지 감지 시 각 Store에 전달, 전달은 콜백함수로 이루어지고 등록된 모든 Store로 페이로드 전달
+- Store(Model)
+    - 어플리케이션 상태와 상태를 변경할 수 있는 메서드 가짐, action의 type에 따라 메서드를 다르게 적용해 상태 변경
+- View
+    - React에 해당하는 부분으로 Store에서 변경된 데이터를 가져와 모든 자식 View에게 데이터 분배, 데이터 받은 View는 화면 새로 렌더링
+- 데이터 흐름은 한 방향으로 강제되고, 모든 상태는 스토어에 모여 있으므로 변경 사항을 여러 컴포넌트로 전달하기도 쉬움
+- Flux !== Redux
+    - Redux는 flux 패턴 그대로 구현한 것이 아님
+    - Dispatcher 개념이 없음: Reducer가 Dispatcher + Store 기능 담당(Redux의 Store는 애플리케이션의 유일 객체로 View 전체 Wrapping하는 역할 + 싱글톤패턴: 모든 리듀서가 하나의 Store에 묶임)
+    - 중앙집중형 Store
+- Context API
+    - React 내부에 구현된 상태관리 툴
+    - 컴포넌트마다 개별적으로 운용 가능
