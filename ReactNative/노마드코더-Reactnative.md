@@ -117,4 +117,82 @@
             - <Fontisto name="" size={} color="">
             - ... :  스프레드 연산자 ,ES6 JS문법
     - #3) **WORK HARD TRAVEL HARD APP**
+        - #3.1 **Touchables**
+            - TouchableOpacity: 누르는 이벤트를 Listen할 준비가 된 View, 누른 요소를 투명하게하는 애니메이션 존재
+                - activeOpacity: 투명도 조절
+                - onPress: 클릭시 실행되는 이벤트
+            - TouchableHighlight: 클릭시 배경 변경
+                - activeOpacity: 투명도 조절
+                - onPress: 클릭시 실행되는 이벤트
+                - underlayColor: 변경되는 배경색 설정
+            - TouchableWithoutFeedback: 화면 가장위에 일어나는 탭 이벤트 listen, UI변화없음(애니메이션없음)
+                - onPress: 클릭시 실행되는 이벤트
+            - pressable: TouchableOpacity의 발전된 버전
+                - delayLongPress: 누르는 시간을 얼마나해야 이벤트 작동할지 설정
+                - hitSlope: 요소바깥 어디까지 탭 누르는 것 감지할지 설정
+        - #3.2 **TextInput**
+            - TextInput: reactnative에서 text작성가능한 유일한 방법
+                - placeholder
+                - onFocus
+                - onChangeText: 입력받은 내용 감지
+                - onSubmitEditing: 키보드 입력버튼 클릭시 발생
+                - keyboardType: 이메일, 주소,,, 키보드 타입으로 변경 ex) number-pad
+                - returnkeyType: 키보드의 전송버튼 타입 변경 ex) send
+                - secureTextEntry: 비밀번호 형식 출력
+                - multiline: 여러줄작성시
+        - #3.3 **To Dos /** #3.4 **Paint To Dos**
+            - Object.assign(target오브젝트, source1, 2,,,): 오브젝트 합쳐서 반환
+            - Object.keys(x)
+        - #3.5 **Persist**
+            - 메뉴따라 다른 오브젝트 출력 : toDos[key].working === working 비교
+            - AsyncStorage
+                - expo install @react-native-async-storage/async-storage
+                - import AsyncStorage from '@react-native-async-storage/async-storage';
+                - 사용방법
+                    
+                    [Usage | Async Storage](https://react-native-async-storage.github.io/async-storage/docs/usage/)
+                    
+        - #3.6 **Delete**
+            - 삭제 로직
+                - const newToDos = {...toDos} // toDos 새로운 변수 생성
+                - delete newToDos[key] // key(id)에 해당하는 값 삭제
+                - setToDos(newToDos) // toDos에 저장
+                - await saveToDos(newToDos) // asyncStorage에 저장
+            - Alert API
+                - Alert.alert("제목","내용",{{text:"no"},{text:"yes", onPress={}}})
+            - callBack: 버튼 클릭시 일어나는 동작
     - #4) **PUBLISHING OUR APPS**
+        - #4.0 **Introduction**
+            - publish: expo의 publish 이용, expo서버로 전송
+            - 안드로이드, IOS, 웹 사이트(react native web) 가능
+            - react native web: react native 코드를 html로 변형
+        - #4.1 **React Native Web**
+            - app.js: IOS, 안드로이드, 웹 환경설정 가능
+            - assets
+                - adaptive-icon: 안드로이드 아이콘
+                - favicon: 웹 즐겨찾기 아이콘
+                - icon: 구글, IOS 아이콘
+                - splash: 앱 로드전에 보이는 화면
+            - Platform API
+                - 현재 플랫폼 확인 가능
+                - ex) Platform.OS==='web'
+        - #4.2 **Building for App Stores**
+            - expo build:android || expo build:ios
+                - expo서버에서 앱스토어에 보낼 수 있는 앱 제작
+            - reactnative windows, MacOs
+                - 윈도우, Mac에서 작동하는 앱 제작가능
+            - ViroReact, ViroMedia
+                - VR용 React Native
+            - 웹사이트에 게시
+                
+                [Publishing Websites - Expo Documentation](https://docs.expo.dev/distribution/publishing-websites/)
+                
+                - npm i gh-pages
+                - package.json에 deploy, predeploy 추가
+                - npm run deploy
+        - #4.3 **Going Native**
+            - expo 단점
+                - 기초적인 파일(infrastructure)에 접근 불가
+                - 앱 크기가 매우 큼: 사용하지 않는 expo SDK도 포함하여 앱 제작
+            - create react-native-app app_name
+                - 기초적인 파일(infrastructure)에 접근 가능 & 모든 expo SDK 접근 가능
