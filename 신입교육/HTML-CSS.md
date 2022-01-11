@@ -1,5 +1,5 @@
-## 2022.01.11
 # HTML/CSS 웹 표준
+## 2022.01.11 HTML
 ### 웹 표준
 - HTML(구조) / CSS(표현) / Javascript(동작)
 - 파일용량 축소 / 로딩속도 / SEO / 유지보수
@@ -56,7 +56,7 @@
         > 내용 독립적일 시 
     - `<section>`: 서로 관계있는 문서 분리하는 역할, 다른주제 문서 구분위해 사용
         > 내용 관계 있을 시
-    -`<header>`: 페이지에 대한 정보, `<nav>`포함 가능
+    - `<header>`: 페이지에 대한 정보, `<nav>`포함 가능
     - `<footer>`: 문서 대한 꼬리말
     - `<nav>`: 네비게이션 역할하는 링크 그룹
     - `<aside>`: 부차적인 내용, `<article>`요소의 왼, 바깥쪽에 위치
@@ -69,3 +69,5 @@
     - onclick - onkeypress
     - onmouseover - onfocus
     - onmouseout - onblur
+
+## 2022.01.12 CSS
