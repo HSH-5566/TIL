@@ -6,18 +6,28 @@
 - 시맨틱 웹/태그: 태그 이름통해 역할 짐작 ->SEO
 ### 의미있는 마크업 및 HTML
 - Structure 언어: HTML, XHTML, XML
-- 문서형 정의: 마크업 문서 정의위한 DTD선언
+- 문서형 정의: 마크업 문서 정의위한 DTD(문서형 정의)선언
+    - 엄격형 `strict`
+    - 호환형 `transitional`
+    - 프레임형 `frameset`
+- 문서형 선언
+    - 반드시 HTML 문서 첫줄에 위치
+    - 문서형 선언위에 공백을 포함한 어떤 요소도 불가
     - HTML5의 경우 `<!DOCTYPE html>`
 ### HTML 구성요소
 - 태그, 요소, 속성
 - 블록 레벨 엘리먼트
 - 인라인 레벨 엘리먼트: 단독 마크업 불가, 블록엘리먼트에 둘러싸여야함
 - 휴먼 랭귀지: 사용하는 언어를 HTML문서에 선언
-    - `<html xml: lang="ko">`
+    - `<html xml: lang="ko" lang="ko">`
 - 문자 코드 세트 지정: 인코딩위해 meta태그 이용
+    - `<meta http-equiv="content-Type" content="text/html; charset=euc-kr" />`
     - 다국어 인코딩: utf-8
     - 한글: euc-kr
 - 키워드 지정: 검색키워드위한 meta태그 이용
+    - `<meta name="keywords" content="키워드, 키워드, 키워드" />`
+- 다양한 문서 정보 지정
+    - `<meta name="subject" content="문서 제목 정보" />`
 ### HTML 명령어
 - 주소 `<address>`: 웹 문서 아래쪽에 연락처 등 정보 표시
     - 인라인 요소와 데이터만 가능
@@ -71,3 +81,51 @@
     - onmouseout - onblur
 
 ## 2022.01.12 CSS
+### CSS
+- CSS 초기화: 태그가 가진 간격, 색상 통일
+    - 브라우저마다 랜더링 방식, 기본 스타일이 달라 이용
+- `Selector(스타일 적용대상) {property(스타일 종류): value(속성값);}`
+- CSS 적용방법
+    - 외부 스타일 시트
+        - Linked Style: 주로 이용 
+            - `<link rel="stylesheet" href="default.css" type="text/css">`
+        - Import Style: 속도 느림
+            - `<style type="text/css">@import "default.css"</style>`
+    - 내부 스타일 시트
+    - 인라인 스타일 시트
+- 선택자 Selector
+    - type 선택자: 요소명이 선택자 `p {color: orange;}`
+    - 전체 선택자: `* {color: orange;}`
+    - class 선택자: 문서내 여러번 적용 `p.note {color: orange;}`
+    - id 선택자: 문서내 한번만 적용 `ul #gnb {color: orange;}`
+    - 속성 선택자: 특정 속성명, 속성값 요소에 적용 `a[href="#wcag"]{color: orange;}`
+    - 가상 클래스: 상황에 따라 스타일 적용
+        - 실제로 존재하는 요소에 이벤트나 환경에 맞춰 가상으로 클래스 부여
+        -` a:hover {color: orange;}`
+    - 가상요소
+        - 실제로 존재하지 않는 가상요소 만들어 스타일 적용
+        - 가상클래스와 구분위해 이중콜론(::)
+        - ::first-line(지정요소의 첫번째 줄에 스타일 적용)
+        - ::first-letter(지정요소의 첫번째 글자에 스타일 적용)
+        - ::before(지정요소 앞에 가상요소 생성) / ::after(지정요소 뒤에 가상요소 생성): 항상 content속성 갖음 / 두 가지의 클래스 가질 수 있도록 함
+    - 선택자 조합
+        - 하위 선택자 `.note p {}`
+        - 자식 선택자 `.note > p {}`
+        - 인접형제 선택자 `h1 + h2 {} `: h1다음에 나오는 h2 선택
+    - 선택자 그룹화 `p, #wrap {color: orange;}`: ,를 이용해 여러 선택자 이용
+    - 상속 inherit: 하위요소가 상위요소의 사용값 물려받음
+        - border: inherit
+    - 겹침 cascading: 스타일 충돌시 가장 마지막에 지정된 스타일 우선 적용
+        - 스타일 충돌: 두 개 이상의 규칙이 동일한 한개의 요소에 적용
+- 단위: 실무에서는 상대단위 이용
+    - 절대단위: pt, cm, mm, pc, in
+    - 상대단위: px(해상도 기준), ex, em(font-size값 기준), %
+- 색상
+    - RGB: 16진수법 이용 ex) `#000000` , `#ff0`, `rgb(255,0,0)`, `rgb(100%,0,0)`
+    - Keyword: 색상명 이용 ex) color: orange
+- 박스모델
+    - 실제화면 가로영역 크기 = width + 2*(padding + border + margin)
+    - 실제화면 세로영역 크기 = height + 2*(padding + border + margin)
+- padding
+    - 음수값, auto 불가
+    - inline요소 사용시 상하좌우 padding 적용 가능
