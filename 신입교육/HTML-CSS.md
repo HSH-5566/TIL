@@ -122,10 +122,79 @@
     - 상대단위: px(해상도 기준), ex, em(font-size값 기준), %
 - 색상
     - RGB: 16진수법 이용 ex) `#000000` , `#ff0`, `rgb(255,0,0)`, `rgb(100%,0,0)`
-    - Keyword: 색상명 이용 ex) color: orange
+    - Keyword: 색상명 이용 ex) `color: orange`
 - 박스모델
     - 실제화면 가로영역 크기 = width + 2*(padding + border + margin)
     - 실제화면 세로영역 크기 = height + 2*(padding + border + margin)
-- padding
+- padding: border 안쪽
     - 음수값, auto 불가
     - inline요소 사용시 상하좌우 padding 적용 가능
+- margin: border 바깥쪽
+    - 음수값, auto 가능
+    - inline요소 사용시 상하 margin 적용불가
+    - 브라우저마다 차이나므로 초기화 필요
+    - margin 겹침현상: margin값이 세로방향으로 만났을 시 큰 값의 margin으로 합쳐짐
+- border: 테두리
+    - border-width: 선두께 / 이용X, 디자인 문제
+    - border-style: 선모양 / 이용X, 디자인 문제
+    - border-color: 선색깔
+    - `border: 1px solid black;`
+- font
+    - font-family: 글꼴지정
+        - 대표패밀리: 글꼴패밀리로 지정한 글꼴 사용불가한 상황 고려해 여러 글꼴 지정
+    - font-size: 글자크기
+    - line-height: 문단 행간 지정
+        - normal, 실수, 길이, %, inherit
+    - font-weight:글자굵기
+        - 키워드, 100~900, inherit
+    - font-style: 스타일
+        - normal, italic, oblique
+    - font-variant: 소문자->대문자
+    - text-indent: 문단 첫줄 들여쓰기 적용시
+        - 길이, %, inherit
+    - `font: bold italic small-caps 12px /1.6 "돋움" sans-serif;`
+    - color: 글자색
+- text-align: 텍스트를 가로기준 정렬
+    - left, center, right, justify, inherit
+- vertical-align: 인라인 요소끼리 세로위치 정렬
+- text-decoration: 텍스트에 효과
+- text-transform: 영문 대소문자 변환
+- letter-spacing: 문자 간격
+- white-space: 공백처리방식
+- background
+    - background-color: 배경색
+    - background-image: 배경이미지
+        - url(), none, inherit
+    - background-repeat: 배경이미지 반복여부
+    - background-attachment: 배경이미지 스크롤 고정
+        - scroll, fixed
+    - background-position: 배경이미지 위치 변경
+    - `background: yellow url(image.gif) no-repeat left top fixed;`
+- border-collapse: 테이블 border표시방법
+    - separate: 이웃하는 테두리선 분리
+    - collapse: 이웃하는 테두리선 겹침
+- overflow: 콘텐츠가 블록박스 크기 넘어갈때 처리
+    - visual, hidden, scroll, auto
+- display: 요소가 가진 박스의 성격변경
+    - none, block, inline, inline-block, inherit
+    - inline-block: margin, padding 사용가능한 인라인 박스
+- visibility: 요소 박스 표시, 숨김
+    - visible, hidden, inherit
+> display: none 과 visibility: hidden -> hidden은 해당 요소가 범위차지함
+- float: 블록 정렬시 사용
+    - none, left, right, inherit
+- clear: 요소 흐름 해제(블록 정렬 해제)
+    - both, left, right
+- position: 요소가 위치할 방식
+    - static, relative, absolute, fixed, inherit
+    - top, right, bottom, left 속성으로 간격지정 / z-index로 z축 순서지정
+    - static위치는 지정불가
+- top, right, bottom, left: 위치된 요소의 각 방향으로 간격 지정
+- z-index: 요소 겹쳐지는 순서 지정
+    - auto, 정수
+    - position값 지정되어야 이용가능 (static제외한 값)
+    - -1: 가장아래에 위치
+
+### Tools / 알아두어야 할 것
+- 파이어폭스: Web Developer
+- W3C: 문법오류 체크
