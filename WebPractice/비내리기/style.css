@@ -1,0 +1,63 @@
+body {
+    height: 100vh;
+    overflow: hidden;
+    background: radial-gradient(
+      ellipse at bottom,
+      rgb(49, 49, 49) 0%,
+      rgb(14, 14, 14) 100%
+    );
+  }
+  
+  .rain {
+    width: 1px;
+    height: 10px;
+    background: rgb(172, 222, 241);
+    animation: rain 5s 1s infinite linear;
+  }
+  
+  .wave {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    border: 1px solid rgb(172, 222, 241);
+    left: -30px;
+    animation: wave 5s 1s infinite linear;
+  }
+  
+  @keyframes rain {
+    0% {
+      opacity: 0;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 1;
+    }
+    60% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(100vh);
+    }
+  }
+  
+  @keyframes wave {
+    0% {
+      opacity: 0;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 0;
+      height: 10px;
+      width: 40px;
+      border-radius: 50%;
+    }
+    100% {
+      opacity: 1;
+      height: 50px;
+      width: 300px;
+      border-radius: 50%;
+      transform: translateY(100vh);
+    }
+  }
+  
