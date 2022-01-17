@@ -7,23 +7,163 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div id="example1"></div>
+    <div id="example2"></div>
+    <div id="example3"></div>
+    <div id="example4"></div>
+    <div id="example5"></div>
+    <div id="example6"></div>
     <script>
-        // "use strict";
-        // function testFunction(){
-        //     var testvar = 4;
-        //     return testvar;
+        // var example = (1 == 1);
+        // document.getElementById("example1").innerHTML = "( 1 == 1 ) 값: "+ example +" typeof: " +typeof(example);
+        // example = ( 1 == "1");
+        // document.getElementById("example2").innerHTML = "( 1 =='1' ) 값"+ example +" typeof: " +typeof(example);
+        // example = ( 1 == "2");
+        // document.getElementById("example3").innerHTML = "( 1 =='2' ) 값"+ example +" typeof: " +typeof(example);
+        // example = ( 1 === "2");
+        // document.getElementById("example4").innerHTML = "( 1 ==='2' ) 값"+ example +" typeof: " +typeof(example);
+        // example = ( 2 === "2");
+        // document.getElementById("example5").innerHTML = "( 2 ==='2' ) 값" + example +" typeof: " +typeof(example);
+
+
+        // x = 42;
+        // var y = 43;
+        // myobj = {};
+        // myobj.h = 4;
+
+        // console.log("암시적변수 x의 셋팅 값: "+ x + ", delete 실행 후 변환 값"+ delete x + ", delete실행후 임시적 변수 x의 값"+ typeof (x) );
+        // console.log("명시적변수 delete 실행 후 변환 값"+ delete y + ", 명시적 변수 y의 값"+ y );
+        // console.log("미리정의된 객체속성제거"+ delete Math.PI + ", 미리정의된 객체속성제거 PI 값"+ Math.PI);
+        // console.log("사용자정의 속성의 값"+myobj.h+"사용자정의속성제거"+delete myobj.h+"사용자정의 제거후 값"+myobj.h);
+        // console.log("암시적객체제거"+delete myobj);
+
+        // var trees = new Array("redwood", "bay", "cadar", "cat", "maple");
+        // delete trees[3];
+        // trees[3] = undefined;
+        // if(3 in trees[3]){
+        //     alert(trees[3]);
         // }
-        // testvar = 5;
-        // y= 3.14;
-        // myFunction();
-        // function myFunction() {
-        //     "use strict";
-        //     x= 3.14;
+
+
+        // var trees = new Array("redwood", "bay", "cadar", "cat", "maple");
+        // console.log(0 in trees);
+        // console.log(3 in trees);
+        // console.log(8 in trees);
+
+        // console.log("PI","PI" in Math);
+
+        // var myString = new String("coral");
+        // console.log("length","length" in myString);
+        
+        // var myCar = {make:"Honda", model:"Asso", year:1998};
+        // console.log("make","make" in myCar);
+        // console.log("model","model" in myCar);
+
+        // for(const key in myCar){
+        //     if(Object.hasOwnProperty.call(myCar, key)){
+        //         const value = myCar[key];
+        //         console.log(value);
+        //     }
         // }
-const a = 10;
-console.log(window.a) //undefined
-console.log(a) //10
+
+
+        // var sports;
+        // try{// 에러 발생가능 코드 작성
+        //     console.log("try");
+        //     sports = swim;
+        // }catch(e){
+        //     console.log("catch");
+        // }finally{
+        //     console.log("finally");
+        // }
+
+        
+        // var sports;
+        // try{
+        //     if(!sports){
+        //         throw "sports변수에 값이 없음"
+        //     }
+        // }catch(e){
+        //         console.log(e,"EEE");
+        // }finally{
+        //     console.log("finally");
+        // }
+
+
+        // var sports;
+        // try{
+        //     if(!sports){
+        //         throw {msg: "에러발생", reason:"변수 값 할당 없음"};
+        //     }
+        // }catch(e){
+        //     console.log(e.msg);
+        //     console.log(e.reason);
+        // }finally{
+        //     console.log("finally");
+        // }
+
+
+        // var sports;
+        // try{
+        //     if(!sports){
+        //         throw Error("에러, 값 할당없음");
+        //     }
+        // }catch(e){
+        //     console.log(e);
+        // }finally{
+        //     console.log("finally");
+        // }
+
+
+        // console.log(typeof(foo));
+        // console.log(typeof(bar));
+
+        // function foo(){
+        //     console.log("foofoo");
+        // }
+        
+        // var bar = function () {
+        //     console.log("bar");
+        // }
+
+        
+        // function checkTypeNum(param1, param2){
+        //     if(typeof(param1) !== "number" || typeof(param2) !== "number"){
+        //         alert("인수 타입이 정수형이 아닙니다.");
+        //         return ;
+        //     }
+        //     alert(param1 * param2);
+        // }
+
+        // const checkTypeNum2 = (param1, param2) => {
+        //     if(!(param1 instanceof Number) || !(param2 instanceof Number)){
+        //         console.log("인수 타입이 정수형이 아닙니다.");
+        //         return;
+        //     }
+        //     console.log(param1 * param2);
+        // }
+
+        // checkTypeNum2("1","2");
+        // checkTypeNum2(2,2);
+
+        
+        // console.log(foo); // undefined
+        // var foo;
+        // foo = "푸";
+        // console.log(foo); //푸
+
+        // alert(foo);
+        // var foo;
+        // foo = 3;
+        // alert(foo);
+ 
+        // var viewFoo = function () {
+        //     alert(foo);
+        //     var foo; // var foo1
+        //     foo = "푸푸";
+        //     alert(foo);
+        // }
+        // viewFoo();
 
     </script>
 </body>
