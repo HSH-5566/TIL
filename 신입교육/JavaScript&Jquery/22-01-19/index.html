@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .off {
+        background-color: white;
+        border: 1px solid black;
+      }
+      .on {
+        background-color: greenyellow;
+        border: 1px dotted red;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div>스타일 DOM으로 변경</div>
+    <button onclick="changeStyle()">스타일 변경 제거</button>
+    <br /> -->
+    <ul>
+      <li class="off">샘플 1</li>
+      <li class="off">샘플 2</li>
+      <li class="off">샘플 3</li>
+      <li class="off">샘플 4</li>
+      <li class="off">샘플 5</li>
+      <li class="off">샘플 6</li>
+    </ul>
+
+    <script>
+      // const changeStyle = () => {
+      //   const div = document.querySelector("div");
+      //   if (div.style.color == "red") {
+      //     div.style.color = "blue";
+      //   } else {
+      //     div.style.color = "red";
+      //   }
+      // };
+      // const btn = document.querySelector("button");
+      // btn.addEventListener("click", () => changeStyle());
+
+      // var li = document.getElementsByTagName("li");
+      // for (var i = 0; i < li.length; i++) {
+      //   if (i % 2 !== 0) {
+      //     li[i].classList.add("on");
+      //   }
+      // }
+
+      var ul = document.querySelector("ul");
+      var frag = document.createDocumentFragment();
+      var li = document.createElement("li");
+      var liText = document.createTextNode("헤헿");
+
+      li.appendChild(liText);
+      frag.appendChild(li);
+      ul.appendChild(frag);
+
+      var selecli = document.getElementsByTagName("li")[6];
+      if (
+        !selecli.getAttribute("class") ||
+        selecli.getAttribute("class") == "off"
+      ) {
+        selecli.setAttribute("class", "on");
+      }
+
+      // if (selecli.className === "" || selecli.className === "off") {
+      //   selecli.setAttribute("class", "on");
+      // }
+
+      // if(!selecli.classList.contains('off')){
+      //   selecli.setAttribute("class", "on");
+      // }
+
+      document.querySelector(".on").remove();
+    </script>
+  </body>
+</html>

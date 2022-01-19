@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .goods {
+      background-color: bisque;
+    }
+    .list {
+      list-style: none;
+    }
+    .item {
+      height: 30px;
+    }
+    .item input {
+      width: 40px;
+    }
+  </style>
+
+  <body>
+    <div class="goods">
+      <ul class="list">
+        <!-- <li class="item">
+                <span>까스 활명수</span>
+                <input type="hidden" name="goodsNo" value="0000000001">
+                <input type="number" name="qty" value="10">
+                <button>삭제</button>
+            </li>
+            <li class="item">
+                <span>파이언넷 티셔츠</span>
+                <input type="hidden" name="goodsNo" value="0000000002">
+                <input type="number" name="qty" value="30">
+                <button>삭제</button>
+            </li>
+            <li class="item">
+                <span>인싸 이대남 헤어 스프레이</span>
+                <input type="hidden" name="goodsNo" value="0000000003">
+                <input type="number" name="qty" value="10">
+                <button>삭제</button>
+            </li> -->
+      </ul>
+    </div>
+
+    <script>
+      const data = [
+        {
+          goodsNo: "0000000001",
+          goodsName: "까스활명수",
+          qty: 10,
+        },
+        {
+          goodsNo: "0000000002",
+          goodsName: "파이언넷 티셔츠",
+          qty: 30,
+        },
+        {
+          goodsNo: "0000000004",
+          goodsName: "인싸 이대남 헤어 스프레이.",
+          qty: 10,
+        },
+        {
+          goodsNo: "0000000005",
+          goodsName: "인싸 이대녀 풀파워 고대기.",
+          qty: 10,
+        },
+      ];
+
+      const removeGoods = (e) => {
+        const currentTarget = e.currentTarget;
+
+        if (currentTarget) {
+          currentTarget.parentNode.remove();
+        }
+      };
+
+      const drawGoods = function (data) {
+        if (!data) {
+          return;
+        }
+
+        const dataLength = data.length;
+
+        const list = document.querySelector(".list"); // getElementsByClassName("list");
+        let goodsHtml = "";
+
+        for (let i = 0; i < dataLength; i++) {
+          const goodsInfo = data[i];
+          // //
+          //             goodsHtml += '<li class="item">';
+          //             goodsHtml += '  <span>'+goodsInfo.goodsName+'</span>';
+          //             goodsHtml += '  <input type="hidden" name="goodsNo" value="'+goodsInfo.goodsNo+'">';
+          //             goodsHtml += '  <input type="number" name="qty" value="'+goodsInfo.qty+'">';
+          //             goodsHtml += '  <button>삭제</button>';
+          //             goodsHtml += '</li>';
+
+          goodsHtml += `
+                <li class="item">
+                    <span>${goodsInfo.goodsName}</span>
+                    <input type="hidden" name="goodsNo" value="${goodsInfo.goodsNo}">
+                    <input type="number" name="qty" value="${goodsInfo.qty}">
+                    <button onclick="removeGoods(event)">삭제</button>
+                </li>
+            `;
+        }
+
+        list.innerHTML = goodsHtml;
+      };
+
+      drawGoods(data);
+    </script>
+  </body>
+</html>

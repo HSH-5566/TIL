@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .on {
+        background-color: yellow;
+        border: 1px solid gray;
+      }
+      .off {
+        background-color: greenyellow;
+        border: 1px solid gray;
+      }
+    </style>
+  </head>
+  <body>
+    <li class="off">홀수 1</li>
+    <li class="off">짝수 2</li>
+    <li class="off">홀수 3</li>
+    <li class="off">짝수 4</li>
+    <li class="off">홀수 5</li>
+    <li class="off">짝수 6</li>
+    <script>
+      var li = document.getElementsByTagName("li");
+      for (var i = 0; i < li.length; i++) {
+        if (i === 0) {
+          li[i].style.fontSize = "32px";
+          li[i].style.color = "blue";
+        }
+        li[i].classList.remove("off");
+        li[i].classList.add("on");
+      }
+    </script>
+  </body>
+</html>

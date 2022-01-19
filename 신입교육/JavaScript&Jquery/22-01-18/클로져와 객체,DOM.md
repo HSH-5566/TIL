@@ -158,6 +158,10 @@
 > 공부
 
 - Scope chain
+- 왜 .name이 undefined?
+  - https://violetboralee.medium.com/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EC%86%8D%EC%84%B1-attribute-%EA%B3%BC-%ED%94%84%EB%A1%9C%ED%8D%BC%ED%8B%B0-property-d2f9b772addf
+  - http://html.elex.pe.kr/reference/div
+  - div 표준속성에 name이 없어 getattribute나 attributes이용해 가져와야.
 
 > 과제
 
