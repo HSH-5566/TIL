@@ -13,6 +13,9 @@
 <script type="text/javascript" src="../common/js/jcarousellite_1.0.1.js"></script>
 <script type="text/javascript" src="../common/js/jquery.elevateZoom-2.5.5.min.js"></script>
 <script type="text/javascript" src="../common/js/ui.js"></script>
+<script type="text/javascript" src="../common/js/myDOM.js"></script>
+<!-- <script type="text/javascript" src="../common/js/myJQuery.js"></script> -->
+
 
 </head>
 <body>
@@ -185,7 +188,7 @@
 						</tr>
 					</thead>
 					<tbody>
-
+						<!-- 요소붙이는구간!!!! -->
 					</tbody>
 					<tfoot>
 						<!-- TOTAL -->
@@ -301,6 +304,11 @@
 			var qtyElement = element.parentNode.querySelector('input[name=qty]')
 			var qtyValue = Number(qtyElement.value);
 			
+			//최대 수량 30
+			if(qtyValue + 1 > 30){
+				alert("최대 수량입니다.");
+				return;
+			}
 			qtyValue++;
 			qtyElement.value = qtyValue;
 
@@ -314,6 +322,16 @@
 		 */
 		 function qtyMinus(element){
 			var qtyElement = element.parentNode.querySelector('input[name=qty]')
+			var qtyValue = Number(qtyElement.value);
+
+			//최하 수량 1
+			if(qtyValue - 1 < 1){
+				alert("최소 수량입니다.");
+				return;
+			}
+
+			qtyValue--;
+			qtyElement.value = qtyValue;
 
 			console.log('qtyMinus', element);
 			console.log('qtyElement', qtyElement);
