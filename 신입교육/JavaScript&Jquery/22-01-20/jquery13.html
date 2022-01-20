@@ -1,0 +1,134 @@
+<!doctype html>
+<head>
+    <title>jQuery Selector</title>
+    <style>
+		body{background-color:#ebebeb;font-family:Dotum}
+		.content { background : #FFF; padding:10px; margin:10px; }
+        #mouseArea { border:2px solid RED; }
+        table { border:1px solid #AAA; width:100% }
+        td { border:1px solid #AAA; }
+
+
+    </style>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+			var $selObj = null;
+			
+			$("table").on("click","tr",function(e){
+				$selObj = $(this);
+				alert($(this).html());
+			});
+
+            $("#append").on("click", function (e) {
+
+				var trLength = $("tr").length;
+				$("table").append("<tr><td>append �߰� : "+(trLength+1)+"</td> </tr>");				
+            });
+
+            $("#prepend").on("click", function (e) {
+
+				var trLength = $("tr").length;
+				$("table").prepend("<tr><td>prepend �߰� : "+(trLength+1)+"</td> </tr>");				
+            });
+
+
+            $("#appendTo").on("click", function (e) {
+
+				var trLength = $("tr").length;
+				$("<tr><td>appendTo �߰� : "+(trLength+1)+"</td> </tr>").appendTo("table");				
+            });
+
+            $("#prependTo").on("click", function (e) {
+
+				var trLength = $("tr").length;
+				$("<tr><td>prependTo �߰� : "+(trLength+1)+"</td> </tr>").prependTo("table");				
+            });
+
+
+			 $("#before").on("click", function (e) {
+
+				var trLength = $("tr").length;
+				$("table tr:eq(3)").before("<tr><td>before 추가 : "+(trLength+1)+"</td> </tr>");				
+            });
+
+
+			 $("#after").on("click", function (e) {
+
+				var trLength = $("tr").length;
+				$("table tr:eq(5)").after("<tr><td>after 추가 : "+(trLength+1)+"</td> </tr>");				
+            });
+
+
+			$("#insertBefore").on("click", function (e) {
+
+				var trLength = $("tr").length;
+				$("table tr:eq(5)").after("<tr><td>after 추가 : "+(trLength+1)+"</td> </tr>");				
+            });
+
+
+			$("#insertAfter").on("click", function (e) {
+
+				var trLength = $("tr").length;
+				$("table tr:eq(5)").after("<tr><td>after 추가 : "+(trLength+1)+"</td> </tr>");				
+            });
+			
+			$("#remove").on("click", function (e) {
+
+				if($selObj == null){
+					alert("객체가 없다!");
+					return;
+				}
+
+				$selObj.remove();				
+            });
+
+
+        });
+
+
+    </script>
+</head>
+<body style="padding:10px;">
+    <h2>jQuery Selector</h2>
+    <p id="content">jQuery.</p>        
+    <div class="content">
+       <table>
+        <tr>
+            <td>#1</td>
+        </tr>
+        <tr>
+            <td>#2</td>
+        </tr>
+        <tr>
+            <td>#3</td>
+        </tr>
+        <tr>
+            <td>#4</td>
+        </tr>
+        <tr>
+            <td>#5</td>
+        </tr>
+        <tr>
+            <td>#6</td>
+        </tr>
+        <tr>
+            <td>#7</td>
+        </tr>
+        <tr>
+            <td>#8</td>
+        </tr>        
+        </table>
+		<input type="button" id="append" value="append" />
+        <input type="button" id="prepend" value="prepend" />
+        <input type="button" id="appendTo" value="appendTo" />
+        <input type="button" id="prependTo" value="prependTo" />
+        <input type="button" id="before" value="before 4추가 tr" />
+        <input type="button" id="after" value="after 6추가 tr" />
+		<input type="button" id="remove" value="tr추가" />
+
+    </div>
+</body>
+</html>

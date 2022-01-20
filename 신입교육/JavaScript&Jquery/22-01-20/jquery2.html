@@ -1,0 +1,64 @@
+<!doctype html>
+<head>
+<title>jQuery Selector</title>
+<style>
+	body{background-color:#ebebeb;font-family:Dotum}
+	.content { background : #FFF; padding:10px; margin:10px; }
+	#content { background : #FFF; padding:10px; margin:10px; }
+	.box{width:40px; height:40px; float:left; padding:10px; margin:10px;background-color:#e0e0e0;}
+	.box2{width:100px; height:40px; float:left; padding:10px; margin:10px;background-color:#EEEEEE}
+    .class span,.class div  { 
+            width:100px; height:40px; float:left; padding:10px; margin:10px; 
+            background-color:#EEEEEE; 
+        }
+
+
+</style>   
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		//모든 TAG 선택
+		$("*").css("border", "2px solid pink");
+
+        //ID값 Content를 선택하여 "yellow" 색상으로 변경..
+        $("#content").css("background", "yellow");
+
+	   //div 를 선택하여 border 스타일 변경. - 배열처리 필요없음
+		$("div").css("border", "2px solid blue");
+
+		 //Class를 선택하여 보더 스타일 변경
+		$(".myClass").css("border", "2px solid red");
+
+	   //id=content, div 를 선택하여 스타일 변경..
+		$("#content, div").css("border", "2px solid red");
+
+
+	});   
+
+</script>
+</head>
+<body style="padding:10px;">
+<h2>jQuery  Selector</h2>
+    <p>jQuery jquery.com .</p>  
+   <div class="content">    
+        <div id="content">
+            셀렉터로 스타일 변경 예제
+			<div>ㅎㅎ div</div>
+        </div>        
+    </div>
+
+
+    <span class="box">SPAN2</span>
+    <div class="box">DIV1</div>    
+    <span class="box">SPAN1</span>
+    <div class="box">DIV2</div>
+
+	<div class="class">
+    <span class="myClass">SPAN class="myClass"</span>
+
+    <div class="box2">DIV</div>    
+    <span class="box2">SPAN</span>
+    <div class="myClass">DIV class="myClass"</div>
+	</div>
+</body>
+</html>

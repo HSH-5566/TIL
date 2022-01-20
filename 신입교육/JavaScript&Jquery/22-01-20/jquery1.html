@@ -1,0 +1,30 @@
+<!doctype html>
+<head>
+<title>jQuery Selector</title>
+<style>
+	body{background-color:#ebebeb;font-family:Dotum}
+	div,span { width:120px; height:40px; float:left; padding:10px; margin:10px; background-color:#ffffff }   
+</style>   
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body style="padding:10px;" onload="onload()">
+<h2>jQuery  Selector</h2>
+    <p>jQuery 돔 찾기 jquery.com 예제.</p>  
+	<div>DOM1</div><span>DOM2</span>
+
+
+	<script type="text/javascript">
+		function onload(){
+			const span= document.querySelector("span");
+			console.log(span);  
+		}
+		// $(document).ready(function () {
+		// // 	//span 값 찾기.        
+		// 	// alert($("span").html());   
+		// 	const span = document.querySelector("span");
+		// 	console.log(span);  
+		// });   
+	//인터프리터 언어이므로 span 읽지 못하여 null -> ready || script를 최하단으로
+	</script>
+</body>
+</html>

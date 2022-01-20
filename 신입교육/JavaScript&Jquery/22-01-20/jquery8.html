@@ -1,0 +1,47 @@
+<!doctype html>
+<head>
+    <title>jQuery Selector</title>
+    <style>
+        div 
+        {
+            width:40px;
+            height:40px;
+            font-size:12px;
+            background:#fab;
+        }
+
+        table { border:1px solid #AAA; }
+        td { border:1px solid #AAA; width:25px; height:25px; }
+		.selected { background:red }
+
+	</style>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("li").each(function () {
+                const $li = $(this);
+                $li.click(function () {
+                    // $li.addClass("selected");
+                    $li.toggleClass("selected");
+                    // $li.siblings().removeClass("selected");
+                    const sibling= $li.siblings();
+                    if(sibling.hasClass("selected")){
+                        sibling.removeClass("selected");
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body style="padding:10px;">
+    <h2>jQuery Selector</h2>
+    <p id="content">jQuery.</p>        
+        <ul>
+            <li>list item 1</li>
+            <li>list item 2</li>            
+            <li>list item 3</li>
+            <li>list item 4</li>
+            <li>list item 5</li>
+        </ul>
+</body>
+</html>

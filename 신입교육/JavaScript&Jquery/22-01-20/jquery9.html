@@ -1,0 +1,40 @@
+<!doctype html>
+<head>
+    <title>jQuery Selector</title>
+    <style>
+
+
+        table { border:1px solid #AAA; }
+        td { border:1px solid #AAA; width:40px; height:40px; }
+		.selected { font-weight:bold; color:White; background-color : Red;}   
+
+    </style>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+		var imgSrc = $("img").attr("src"); 
+		$("img").attr("src", "http://sstatic.naver.net/search/img3/h1_naver2.png"); 
+        // console.log($('img').attr("src"))
+		// $("img").removeAttr("src");
+		
+		// alert($("input").val());
+
+        //value값 세팅
+		// alert($("input").val("value value"));
+
+		// alert($("div").text());
+        // alert($("div").html());
+		console.log($("div").text()) ; 
+        console.log($("div").html()) ; //.innerHTML: html태그까지
+
+		});
+    </script>
+</head>
+<body style="padding:10px;">
+    <h2>jQuery Selector</h2>
+    <p id="content">jQuery.</p>        
+    <div>div<img alt="alt값" />img</div>
+	<input type="text" value="value값" />
+</body>
+</html>

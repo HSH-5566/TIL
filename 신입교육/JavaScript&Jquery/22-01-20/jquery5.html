@@ -1,0 +1,44 @@
+<!doctype html>
+<head>
+    <title>jQuery Selector</title>
+    <style>
+        div,span  
+        {
+            width:100px; 
+            height:80px; 
+            float:left; 
+            padding:10px; 
+            margin:10px; 
+            background-color:#EEEEEE; 
+        }
+        div#small 
+        {
+            width:60px;
+            height:20px;
+            font-size:12px;
+            background:#fab;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+			// $("#prev + div").css("border", "3px groove blue");
+
+            $("#prev ~ div").css("border", "3px groove blue");
+        });
+    </script>
+</head>
+<body style="padding:10px;">
+    <h2>jQuery Selector</h2>
+    <p id="content">jQuery jquery.com</p>        
+    <div>div (doesn't match since before #prev)</div>
+    <span id="prev">span#prev</span>
+    <div>div sibling</div>
+    <div>div sibling 
+        <div id="small">div niece</div>
+    </div>
+    <span>span sibling (not div)</span>
+    <div>div sibling</div>
+</body>
+</html>

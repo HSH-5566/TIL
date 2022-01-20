@@ -1,0 +1,62 @@
+<!doctype html>
+<head>
+    <title>jQuery</title>
+    <style>
+        div#small 
+        {
+            width:60px;
+            height:20px;
+            font-size:12px;
+            background:#fab;
+        }
+		table { border:1px solid #AAA; }
+        td { border:1px solid #AAA; width:25px; height:25px; } 
+    </style>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+			   $('#form1').submit(function () {
+           // $('form').submit(function () {
+                // var datas = $(this).serialize();
+                // var datasArr = $(this).serializeArray();
+
+				// console.log("datas : " +datas);
+				// console.log("datasArr : " +datasArr);
+
+                const $form = $(this);
+                const userId =  $form.find("input[name=userId]").val();
+                const userName =  $form.find("input[name=userName]").val();
+
+                if(userId == ""){
+                    alert("사용자 아이디가 설정되어 있지 않습니다.");
+                    return false;
+                }
+
+                if(userName == ""){
+                    alert("사용자 이름이 설정되어 있지 않습니다.");
+                    return false;
+                }
+
+                return true;
+            });
+        });
+    </script>
+</head>
+<body style="padding:10px;">    
+    <h2>jQuery Selector</h2>
+    <p>jQuery</p>
+    <div>    
+        <form action="http://www.naver.com" id="form1" method="post">
+            <input type="text" name="userId" value="" id="a" /><br />
+            <input type="text" name="userName" value="" id="b" /><br />
+            <input type="hidden" name="c" value="3" id="c" /><br />          
+            <select name="d">
+            <option value="5" selected="selected">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            </select><br />            
+            <input type="submit" name="f" value="Submit" id="f" />
+        </form>
+    </div>
+</body>
+</html>

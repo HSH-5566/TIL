@@ -1,0 +1,77 @@
+<!doctype html>
+<head>
+    <title>jQuery Selector</title>
+    <style>
+		body{background-color:#ebebeb;font-family:Dotum}
+		.content { background : #FFF; padding:10px; margin:10px; }
+        #mouseArea { border:2px solid RED; }
+        table { border:1px solid #AAA; width:100% }
+        td { border:1px solid #AAA; }
+
+
+    </style>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+        var countEnter = 0;
+        var countLeave = 0;
+        $(document).ready(function () {
+
+			
+			// $("table").on("click", function(e){
+			// 	alert($(this).html());
+			// });
+
+            // $("table td").on("click", function(e){
+			// 	alert($(this).html());
+			// });
+
+            $("table").on("click","td",function(e){
+				alert($(this).html());
+			});
+            //"tr"을 추가하여 새로만들어지는 요소에 이벤트 추가
+
+            $("#btn").on("click", function (e) {
+
+				var trLength = $("tr").length;
+				$("table").append("<tr><td> #"+(trLength+1)+"</td> </tr>");
+				
+            });
+        });
+
+
+    </script>
+</head>
+<body style="padding:10px;">
+    <h2>jQuery Selector</h2>
+    <p id="content">jQuery.</p>        
+    <div class="content">
+       <table>
+        <tr>
+            <td>#1</td>
+        </tr>
+        <tr>
+            <td>#2</td>
+        </tr>
+        <tr>
+            <td>#3</td>
+        </tr>
+        <tr>
+            <td>#4</td>
+        </tr>
+        <tr>
+            <td>#5</td>
+        </tr>
+        <tr>
+            <td>#6</td>
+        </tr>
+        <tr>
+            <td>#7</td>
+        </tr>
+        <tr>
+            <td>#8</td>
+        </tr>        
+        </table>
+		<input type="button" id="btn" value="row추가" />
+    </div>
+</body>
+</html>

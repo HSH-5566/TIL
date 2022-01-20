@@ -1,6 +1,6 @@
 # Javascript / JQuery
 
-## 2022.01.17 Javascript
+## 2022.01.18 Javascript
 
 ### 1. Closer (클로져)
 
