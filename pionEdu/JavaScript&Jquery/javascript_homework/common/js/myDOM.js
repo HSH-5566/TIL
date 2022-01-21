@@ -22,9 +22,7 @@ function soldOutGoods(num) {
 soldOutGoods(1);
 
 // 1. 수량
-/**
- * 수량 더하기
- */
+//수량더하기
 function qtyPlus(element) {
   var qtyElement = element.parentNode.querySelector("input[name=qty]");
   var qtyValue = Number(qtyElement.value);
@@ -39,9 +37,7 @@ function qtyPlus(element) {
   qtyElement.value = qtyValue;
 }
 
-/**
- * 수량 빼기
- */
+// 수량빼기
 function qtyMinus(element) {
   var qtyElement = element.parentNode.querySelector("input[name=qty]");
   var qtyValue = Number(qtyElement.value);
@@ -56,3 +52,16 @@ function qtyMinus(element) {
   qtyValue--;
   qtyElement.value = qtyValue;
 }
+
+function orderUpdate() {
+  const goodsAll = document.querySelectorAll(`#tbl_cart_list tbody tr`);
+  for (goods of goodsAll) {
+    const goodsQty = goods.querySelector(`.g_qty .qty #cnt3`);
+    const goodsPrice = goods.querySelector(`.g_prc span`);
+    console.log(goodsPrice);
+  }
+}
+
+orderUpdate();
+
+function orderAllUpdate() {}
