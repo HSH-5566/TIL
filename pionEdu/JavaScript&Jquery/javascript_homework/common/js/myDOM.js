@@ -15,7 +15,7 @@ function soldOutGoods(num) {
 
   const goodsPrice = goods.querySelector(`.g_prc`);
   const deliveryCharge = goods.querySelector(`.g_dvr`);
-  const GOODS_SOLD_OUT = `품절`;
+  const GOODS_SOLD_OUT = `<span>품절</span>`;
   goodsPrice.innerHTML = GOODS_SOLD_OUT;
   deliveryCharge.innerHTML = GOODS_SOLD_OUT;
 }
@@ -53,15 +53,17 @@ function qtyMinus(element) {
   qtyElement.value = qtyValue;
 }
 
-function orderUpdate() {
-  const goodsAll = document.querySelectorAll(`#tbl_cart_list tbody tr`);
-  for (goods of goodsAll) {
-    const goodsQty = goods.querySelector(`.g_qty .qty #cnt3`);
-    const goodsPrice = goods.querySelector(`.g_prc span`);
-    console.log(goodsPrice);
-  }
+const changeBtns = document.querySelectorAll(`#tbl_cart_list tbody .modi`);
+for (changeBtn of changeBtns) {
+  changeBtn.onclick = () => orderUpdate(event);
 }
 
-orderUpdate();
+function orderUpdate(e) {
+  const goods = e.target.parentNode.parentNode;
+  const goodsQty = goods.firstChild.nextSibling.value;
+  const goodsPrice =
+    goods.parentNode.nextSibling.nextSibling.firstChild.innerHTML;
+  console.log(goodsQty, goodsPrice);
+}
 
 function orderAllUpdate() {}
