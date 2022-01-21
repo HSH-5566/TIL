@@ -232,6 +232,6 @@ function buySelectGoods(){
     total += goodsQty * goodsPrice + Number(goodsDeliverPrice);
   }
   result += `\n]\n`;
-  result += `\n주문가격: ${total}원`;
-  console.log(result);
+  result += `\n주문가격: ${toCurrency(total)}원`;
+  alert(result);
 }
