@@ -9,8 +9,8 @@ function soldOutGoods(num) {
     `#tbl_cart_list tbody tr:nth-child(${num})`
   );
   const goodsQty = goods.querySelector(`.g_qty .qty #cnt3`);
-  const qtyValue = Number(0);
-  goodsQty.value = qtyValue;
+  const qtyValue = 0;
+  goodsQty.setAttribute("value", qtyValue);
   goodsQty.disabled = true;
 
   const goodsQtyPlusBtn = goods.querySelector(`.g_qty .qty .plus`);
@@ -42,7 +42,7 @@ function qtyPlus(element) {
     return;
   }
   qtyValue++;
-  qtyElement.value = qtyValue;
+  qtyElement.setAttribute("value", qtyValue);
 }
 
 // 수량빼기
@@ -58,7 +58,7 @@ function qtyMinus(element) {
   }
 
   qtyValue--;
-  qtyElement.value = qtyValue;
+  qtyElement.setAttribute("value", qtyValue);
 }
 
 function orderUpdate(e) {
@@ -69,6 +69,35 @@ function orderUpdate(e) {
 
   let changePrice = goods.parentNode.parentNode.querySelector(".g_prc");
   changePrice.innerHTML = `${toCurrency(resultPrice)}원`;
+  orderAllUpdate();
 }
 
-function orderAllUpdate() {}
+function orderAllUpdate() {
+  const goodsAll = document.querySelectorAll(`#tbl_cart_list > tbody tr`);
+  let goodsAllPrice = 0;
+  let deliverAllPrice = 0;
+  let resultPrice = 0;
+  for (goods of goodsAll) {
+    //개수 * 가격 가져오고 숫자인지 판단if 맞으면 넣고~
+    const goodsQty = goods.querySelector(`input[name = qty]`).value;
+    if (Number(goodsQty) === 0) {
+      continue;
+    }
+    const goodsPrice = goods.querySelector(`input[name = amt]`).value;
+    const deliverPrice = goods.querySelector(`input[name = deliver_amt]`).value;
+    goodsAllPrice += goodsQty * goodsPrice;
+    deliverAllPrice += Number(deliverPrice);
+  }
+  resultPrice = goodsAllPrice + deliverAllPrice;
+
+  const orderSum = document.querySelectorAll(`#tbl_cart_list tfoot #ord_amt`);
+  const orderDeliverSum = document.querySelectorAll(
+    `#tbl_cart_list tfoot #deliver_total_amt`
+  );
+  const total = document.querySelectorAll(`#tbl_cart_list tfoot #total_amt`);
+  orderSum[0].innerHTML = toCurrency(goodsAllPrice);
+  orderDeliverSum[0].innerHTML = toCurrency(deliverAllPrice);
+  total[0].innerHTML = toCurrency(resultPrice);
+}
+
+orderAllUpdate();
