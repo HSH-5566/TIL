@@ -712,8 +712,7 @@
           html += '					<td class="g_pic">	';
           html +=
             '						<input type="checkbox"  name="choice_prd" class="checkbox" title="상품 선택"/>	';
-          html +=
-            '						<a href="#"><img src="../images/goods/img_50.jpg" width="50" height="50"  alt="상품"  /></a>	';
+          html += `<a href="#"><img src="${cart.goods_img}" width="50" height="50"  alt="상품"  /></a>`;
           html += "					</td>	";
           html += '					<td class="g_info">	';
           html += '						<p class="pname">	';
@@ -727,7 +726,7 @@
             cart.item[0].item_nm +
             '개) <a ="#" onclick="lyrPreView("layer2");return false;" onkeypress="this.onclick;"><img src="../images/order/btn_chg_option.gif" width="71" height="18" alt="선택사항수정" /></a></li>	';
           html += "						</ul>	";
-          html += '						<p class="pprc">358,000원</p>	';
+          html += `         <p class="pprc">${toCurrency(cart.price)}원</p>`;
           html += "					</td>	";
           html += '					<td class="g_info">	';
           html += '						<p class="icons">	';
@@ -739,14 +738,10 @@
           html += '							<p class="qty">	';
           html +=
             '								<input type="text" name="qty" id="cnt3" value="1" class="input" title="상품수량입력" />	';
-          html +=
-            '								<input type="hidden" name="amt" value="358000" class="input" title="상품 가격" />	';
-          html +=
-            '								<input type="hidden" name="deliver_amt" value="3000" class="input" title="배송비" />	';
-          html +=
-            '								<input type="hidden" name="goods_code" value="ABCDEFG1401203" class="input" title="상품코드" />	';
-          html +=
-            '								<input type="hidden" name="item_no" value="ABCDEFG1401201_ITEM_3" class="input" title="단품 코드" />	';
+          html += `								<input type="hidden" name="amt" value="${cart.price}" class="input" title="상품 가격" />	`;
+          html += `								<input type="hidden" name="deliver_amt" value="${cart.deliver_amt}" class="input" title="배송비" />	`;
+          html += `								<input type="hidden" name="goods_code" value="${cart.goods_no}" class="input" title="상품코드" />	`;
+          html += `								<input type="hidden" name="item_no" value="${cart.item[0].item_no}" class="input" title="단품 코드" />	`;
           html +=
             '								<a href="javascript:;" onclick="qtyPlus(this);" class="plus"><img src="../images/goods/btn_cnt_up.gif" width="15" height="9" alt="수량증가" /></a>	';
           html +=
@@ -755,8 +750,10 @@
             '								<a href="javascript:;" class="modi"><img src="../images/order/btn_cnt_mod.gif" width="46" height="18" alt="변경" /></a>	';
           html += "					</p>	";
           html += "				</td>	";
-          html += '				<td class="g_prc"><span>358,000원</span></td>	';
-          html += '				<td class="g_dvr">3,000원</td>	';
+          html += `				<td class="g_prc"><span>${toCurrency(
+            cart.price
+          )}원</span></td>	`;
+          html += `				<td class="g_dvr">${toCurrency(cart.deliver_amt)}원</td>	`;
           html += '				<td class="g_ord">	';
           html +=
             '					<a href="#"><img src="../images/order/btn_order_s.gif" width="51" height="20" alt="주문하기" /></a>	';

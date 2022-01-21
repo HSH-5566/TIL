@@ -1,3 +1,8 @@
+const changeBtns = document.querySelectorAll(`#tbl_cart_list tbody .modi`);
+for (changeBtn of changeBtns) {
+  changeBtn.onclick = () => orderUpdate(event);
+}
+
 // 0. 품절.
 function soldOutGoods(num) {
   const goods = document.querySelector(
@@ -8,10 +13,13 @@ function soldOutGoods(num) {
   goodsQty.value = qtyValue;
   goodsQty.disabled = true;
 
-  const goodsQtyBtnPlus = goods.querySelector(`.g_qty .qty .plus`);
-  const goodsQtyBtnMinus = goods.querySelector(`.g_qty .qty .minus`);
-  goodsQtyBtnPlus.onclick = null;
-  goodsQtyBtnMinus.onclick = null;
+  const goodsQtyPlusBtn = goods.querySelector(`.g_qty .qty .plus`);
+  const goodsQtyMinusBtn = goods.querySelector(`.g_qty .qty .minus`);
+  goodsQtyPlusBtn.onclick = null;
+  goodsQtyMinusBtn.onclick = null;
+
+  const goodsChangeBtn = goods.querySelector(`.modi`);
+  goodsChangeBtn.onclick = null;
 
   const goodsPrice = goods.querySelector(`.g_prc`);
   const deliveryCharge = goods.querySelector(`.g_dvr`);
@@ -53,17 +61,14 @@ function qtyMinus(element) {
   qtyElement.value = qtyValue;
 }
 
-const changeBtns = document.querySelectorAll(`#tbl_cart_list tbody .modi`);
-for (changeBtn of changeBtns) {
-  changeBtn.onclick = () => orderUpdate(event);
-}
-
 function orderUpdate(e) {
   const goods = e.target.parentNode.parentNode;
-  const goodsQty = goods.firstChild.nextSibling.value;
-  const goodsPrice =
-    goods.parentNode.nextSibling.nextSibling.firstChild.innerHTML;
-  console.log(goodsQty, goodsPrice);
+  const goodsQty = goods.querySelector("input[name = qty]").value;
+  const goodsPrice = goods.parentNode.querySelector("input[name = amt]").value;
+  const resultPrice = Number(goodsQty) * Number(goodsPrice);
+
+  let changePrice = goods.parentNode.parentNode.querySelector(".g_prc");
+  changePrice.innerHTML = `${toCurrency(resultPrice)}원`;
 }
 
 function orderAllUpdate() {}
