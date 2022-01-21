@@ -61,6 +61,7 @@ function qtyMinus(element) {
   qtyElement.setAttribute("value", qtyValue);
 }
 
+//개별 주문금액 체크
 function orderUpdate(e) {
   const goods = e.target.parentNode.parentNode;
   const goodsQty = goods.querySelector("input[name = qty]").value;
@@ -72,13 +73,13 @@ function orderUpdate(e) {
   orderAllUpdate();
 }
 
+//전체 주문금액 체크
 function orderAllUpdate() {
   const goodsAll = document.querySelectorAll(`#tbl_cart_list > tbody tr`);
   let goodsAllPrice = 0;
   let deliverAllPrice = 0;
   let resultPrice = 0;
   for (goods of goodsAll) {
-    //개수 * 가격 가져오고 숫자인지 판단if 맞으면 넣고~
     const goodsQty = goods.querySelector(`input[name = qty]`).value;
     if (Number(goodsQty) === 0) {
       continue;
