@@ -7,8 +7,11 @@ for (removeBtn of removeBtns) {
   removeBtn.onclick = () => removeGoods(event);
 }
 
-const removeSelectBtn = document.querySelector(`.c_sel .btns a`);
+const removeSelectBtn = document.querySelector(`.c_sel .btns a:nth-child(1)`);
 removeSelectBtn.onclick = () => removeSelectGoods();
+
+const buyAllBtn = document.querySelector(`.c_sel .btns a:nth-child(3)`);
+buyAllBtn.onclick = () => buyAllGoods();
 
 // 0. 품절.
 function soldOutGoods(num) {
@@ -100,14 +103,14 @@ function updateAllOrder() {
   }
   resultPrice = goodsAllPrice + deliverAllPrice;
 
-  const orderSum = document.querySelectorAll(`#tbl_cart_list #ord_amt`);
-  const orderDeliverSum = document.querySelectorAll(
+  const orderSum = document.querySelector(`#tbl_cart_list #ord_amt`);
+  const orderDeliverSum = document.querySelector(
     `#tbl_cart_list #deliver_total_amt`
   );
-  const total = document.querySelectorAll(`#tbl_cart_list #total_amt`);
-  orderSum[0].innerHTML = toCurrency(goodsAllPrice);
-  orderDeliverSum[0].innerHTML = toCurrency(deliverAllPrice);
-  total[0].innerHTML = toCurrency(resultPrice);
+  const total = document.querySelector(`#tbl_cart_list #total_amt`);
+  orderSum.innerHTML = toCurrency(goodsAllPrice);
+  orderDeliverSum.innerHTML = toCurrency(deliverAllPrice);
+  total.innerHTML = toCurrency(resultPrice);
 }
 
 updateAllOrder();
@@ -141,3 +144,32 @@ function removeSelectGoods(){
   })
   updateAllOrder();
 }
+
+//3. 주문
+// 검정색 전체 주문버튼 기능 qty,amt,deliver_amt,goods_code,item_no
+function buyAllGoods(){
+  const goodsAll = document.querySelectorAll(`#tbl_cart_list > tbody tr`);
+  let result = `[`;
+  for(goods of goodsAll){
+    const goodsQty = goods.querySelector(`input[name = qty]`).value;
+    if (Number(goodsQty) === 0) {
+      continue;
+    }
+    const goodsPrice = goods.querySelector(`input[name = amt]`).value;
+    const goodsDeliverPrice = goods.querySelector(`input[name = deliver_amt]`).value;
+    const goodsCode = goods.querySelector(`input[name = goods_code]`).value;
+    const goodsNo = goods.querySelector(`input[name = item_no]`).value;
+    result += `
+            {
+              qty : ${goodsQty}
+              amt : ${goodsPrice}
+              deliver_amt : ${goodsDeliverPrice}
+              goods_code : ${goodsCode}
+              item_no : ${goodsNo}
+            },`
+  }
+  result += `\n]\n`;
+  const total = document.querySelector(`#tbl_cart_list #total_amt`).innerHTML;
+  result += `\n주문가격: ${total}`;
+  alert(result);
+} 
