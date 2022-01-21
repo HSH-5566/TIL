@@ -34,6 +34,7 @@ soldOutGoods(1);
 function qtyPlus(element) {
   var qtyElement = element.parentNode.querySelector("input[name=qty]");
   var qtyValue = Number(qtyElement.value);
+  // console.log(qtyValue);
   const MAX = Number(30);
 
   //최대 수량 30
@@ -50,6 +51,7 @@ function qtyMinus(element) {
   var qtyElement = element.parentNode.querySelector("input[name=qty]");
   var qtyValue = Number(qtyElement.value);
   const MIN = Number(1);
+  // console.log(qtyValue);
 
   //최하 수량 1
   if (qtyValue - 1 < MIN) {
@@ -80,25 +82,41 @@ function orderAllUpdate() {
   let deliverAllPrice = 0;
   let resultPrice = 0;
   for (goods of goodsAll) {
-    const goodsQty = goods.querySelector(`input[name = qty]`).value;
-    if (Number(goodsQty) === 0) {
+    const goodsQty = goods.querySelector(`input[name = qty]`);
+    if (Number(goodsQty.value) === 0) {
       continue;
     }
     const goodsPrice = goods.querySelector(`input[name = amt]`).value;
     const deliverPrice = goods.querySelector(`input[name = deliver_amt]`).value;
-    goodsAllPrice += goodsQty * goodsPrice;
+    goodsAllPrice += goodsQty.value * goodsPrice;
     deliverAllPrice += Number(deliverPrice);
   }
   resultPrice = goodsAllPrice + deliverAllPrice;
 
-  const orderSum = document.querySelectorAll(`#tbl_cart_list tfoot #ord_amt`);
+  const orderSum = document.querySelectorAll(`#tbl_cart_list #ord_amt`);
   const orderDeliverSum = document.querySelectorAll(
-    `#tbl_cart_list tfoot #deliver_total_amt`
+    `#tbl_cart_list #deliver_total_amt`
   );
-  const total = document.querySelectorAll(`#tbl_cart_list tfoot #total_amt`);
+  const total = document.querySelectorAll(`#tbl_cart_list #total_amt`);
   orderSum[0].innerHTML = toCurrency(goodsAllPrice);
   orderDeliverSum[0].innerHTML = toCurrency(deliverAllPrice);
   total[0].innerHTML = toCurrency(resultPrice);
 }
 
 orderAllUpdate();
+
+// const underCheckBox = document.querySelector(`.c_sel #sel_all_2`);
+function checkAll(checkedId){
+  const allCheckBox = document.querySelector(`#${checkedId}`);
+  const checkBoxs = document.querySelectorAll(`.g_pic input[name = choice_prd]`);
+  const allCheckBoxs = document.querySelectorAll(`input[name = sel_all]`);
+  console.log(checkBoxs,allCheckBoxs );
+  checkBoxs.forEach((checkBox) => {
+    checkBox.checked = allCheckBox.checked;
+  })
+  allCheckBoxs.forEach((checkBox) => {
+    checkBox.checked = allCheckBox.checked;
+  })
+
+}
+// underCheckBox.addEventListener('click', checkAll);
