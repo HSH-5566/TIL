@@ -1,6 +1,10 @@
 const changeBtns = document.querySelectorAll(`#tbl_cart_list tbody .modi`);
 for (changeBtn of changeBtns) {
-  changeBtn.onclick = () => orderUpdate(event);
+  changeBtn.onclick = () => updateOrder(event);
+}
+const removeBtns = document.querySelectorAll(`#tbl_cart_list .g_ord .del`);
+for (removeBtn of removeBtns) {
+  removeBtn.onclick = () => removeGoods(event);
 }
 
 // 0. 품절.
@@ -64,7 +68,7 @@ function qtyMinus(element) {
 }
 
 //개별 주문금액 체크
-function orderUpdate(e) {
+function updateOrder(e) {
   const goods = e.target.parentNode.parentNode;
   const goodsQty = goods.querySelector("input[name = qty]").value;
   const goodsPrice = goods.parentNode.querySelector("input[name = amt]").value;
@@ -72,11 +76,11 @@ function orderUpdate(e) {
 
   let changePrice = goods.parentNode.parentNode.querySelector(".g_prc");
   changePrice.innerHTML = `${toCurrency(resultPrice)}원`;
-  orderAllUpdate();
+  updateAllOrder();
 }
 
 //전체 주문금액 체크
-function orderAllUpdate() {
+function updateAllOrder() {
   const goodsAll = document.querySelectorAll(`#tbl_cart_list > tbody tr`);
   let goodsAllPrice = 0;
   let deliverAllPrice = 0;
@@ -103,20 +107,25 @@ function orderAllUpdate() {
   total[0].innerHTML = toCurrency(resultPrice);
 }
 
-orderAllUpdate();
+updateAllOrder();
 
-// const underCheckBox = document.querySelector(`.c_sel #sel_all_2`);
+//2. 선택
+// 전체 체크박스 기능
 function checkAll(checkedId){
   const allCheckBox = document.querySelector(`#${checkedId}`);
   const checkBoxs = document.querySelectorAll(`.g_pic input[name = choice_prd]`);
   const allCheckBoxs = document.querySelectorAll(`input[name = sel_all]`);
-  console.log(checkBoxs,allCheckBoxs );
   checkBoxs.forEach((checkBox) => {
     checkBox.checked = allCheckBox.checked;
   })
   allCheckBoxs.forEach((checkBox) => {
     checkBox.checked = allCheckBox.checked;
   })
-
 }
-// underCheckBox.addEventListener('click', checkAll);
+
+//단일 삭제기능
+function removeGoods(e){
+  const goods = e.target.parentNode.parentNode;
+  goods.remove();
+  updateAllOrder();
+}
