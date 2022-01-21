@@ -7,6 +7,9 @@ for (removeBtn of removeBtns) {
   removeBtn.onclick = () => removeGoods(event);
 }
 
+const removeSelectBtn = document.querySelector(`.c_sel .btns a`);
+removeSelectBtn.onclick = () => removeSelectGoods();
+
 // 0. 품절.
 function soldOutGoods(num) {
   const goods = document.querySelector(
@@ -127,5 +130,14 @@ function checkAll(checkedId){
 function removeGoods(e){
   const goods = e.target.parentNode.parentNode;
   goods.remove();
+  updateAllOrder();
+}
+
+//선택 삭제 기능
+function removeSelectGoods(){
+  const checkBoxs = document.querySelectorAll(`.g_pic input[name = choice_prd]`);
+  checkBoxs.forEach((checkBox)=>{
+    checkBox.checked ? checkBox.parentNode.parentNode.remove() : null;
+  })
   updateAllOrder();
 }
