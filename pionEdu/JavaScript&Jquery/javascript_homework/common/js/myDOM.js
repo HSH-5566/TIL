@@ -15,7 +15,10 @@ for (buyBtn of buyBtns) {
 const removeSelectBtn = document.querySelector(`.c_sel .btns a:nth-child(1)`);
 removeSelectBtn.onclick = () => removeSelectGoods();
 
-const buyAllBtn = document.querySelector(`.c_sel .btns a:nth-child(3)`);
+const buySelectBtn = document.querySelector(`.c_sel .btns a:nth-child(3)`);
+buySelectBtn.onclick = () => buySelectGoods();
+
+const buyAllBtn = document.querySelector(`.c_sel .btns a:nth-child(4)`);
 buyAllBtn.onclick = () => buyAllGoods();
 
 // 0. 품절.
@@ -154,7 +157,7 @@ function removeSelectGoods(){
 }
 
 //3. 주문
-// 검정색 전체 주문버튼 기능 qty,amt,deliver_amt,goods_code,item_no
+// 전체 주문버튼 기능 qty,amt,deliver_amt,goods_code,item_no
 function buyAllGoods(){
   const goodsAll = document.querySelectorAll(`#tbl_cart_list > tbody tr`);
   let result = `[`;
@@ -178,7 +181,7 @@ function buyAllGoods(){
   }
   result += `\n]\n`;
   const total = document.querySelector(`#tbl_cart_list #total_amt`).innerHTML;
-  result += `\n주문가격: ${total}`;
+  result += `\n주문가격: ${total}원`;
   alert(result);
 }
 //주황색 개별 주문버튼
@@ -197,6 +200,38 @@ function buyGoods(e){
             goods_code : ${goodsCode}
             item_no : ${goodsNo}
           },\n]\n`
-  result += `\n주문가격: ${goodsQty*goodsPrice+Number(goodsDeliverPrice)}`;
+  result += `\n주문가격: ${toCurrency(goodsQty*goodsPrice+Number(goodsDeliverPrice))}원`;
   alert(result);
+}
+// 선택 주문 버튼기능
+function buySelectGoods(){
+  const checkBoxs = document.querySelectorAll(`.g_pic input[name = choice_prd]`);
+  let result = `[`;
+  let total = 0;
+  for(checkBox of checkBoxs){
+    if(!checkBox.checked){
+      continue;
+    }
+    const goods = checkBox.parentNode.parentNode;
+    const goodsQty = goods.querySelector(`input[name = qty]`).value;
+    if (Number(goodsQty) === 0) {
+      continue;
+    }
+    const goodsPrice = goods.querySelector(`input[name = amt]`).value;
+    const goodsDeliverPrice = goods.querySelector(`input[name = deliver_amt]`).value;
+    const goodsCode = goods.querySelector(`input[name = goods_code]`).value;
+    const goodsNo = goods.querySelector(`input[name = item_no]`).value;
+    result += `
+            {
+              qty : ${goodsQty}
+              amt : ${goodsPrice}
+              deliver_amt : ${goodsDeliverPrice}
+              goods_code : ${goodsCode}
+              item_no : ${goodsNo}
+            },`
+    total += goodsQty * goodsPrice + Number(goodsDeliverPrice);
+  }
+  result += `\n]\n`;
+  result += `\n주문가격: ${total}원`;
+  console.log(result);
 }
