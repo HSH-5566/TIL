@@ -7,6 +7,11 @@ for (removeBtn of removeBtns) {
   removeBtn.onclick = () => removeGoods(event);
 }
 
+const buyBtns = document.querySelectorAll(`#tbl_cart_list .g_ord a:nth-child(1)`);
+for (buyBtn of buyBtns) {
+  buyBtn.onclick = () => buyGoods(event);
+}
+
 const removeSelectBtn = document.querySelector(`.c_sel .btns a:nth-child(1)`);
 removeSelectBtn.onclick = () => removeSelectGoods();
 
@@ -30,6 +35,9 @@ function soldOutGoods(num) {
 
   const goodsChangeBtn = goods.querySelector(`.modi`);
   goodsChangeBtn.onclick = null;
+
+  const goodsBuyBtn = goods.querySelector(`.g_ord > a`);
+  goodsBuyBtn.onclick = null;
 
   const goodsPrice = goods.querySelector(`.g_prc`);
   const deliveryCharge = goods.querySelector(`.g_dvr`);
@@ -172,4 +180,23 @@ function buyAllGoods(){
   const total = document.querySelector(`#tbl_cart_list #total_amt`).innerHTML;
   result += `\n주문가격: ${total}`;
   alert(result);
-} 
+}
+//주황색 개별 주문버튼
+function buyGoods(e){
+  const goods = e.target.parentNode.parentNode.parentNode;
+  const goodsQty = goods.querySelector(`input[name = qty]`).value;
+  const goodsPrice = goods.querySelector(`input[name = amt]`).value;
+  const goodsDeliverPrice = goods.querySelector(`input[name = deliver_amt]`).value;
+  const goodsCode = goods.querySelector(`input[name = goods_code]`).value;
+  const goodsNo = goods.querySelector(`input[name = item_no]`).value;
+  let result = `[
+          {
+            qty : ${goodsQty}
+            amt : ${goodsPrice}
+            deliver_amt : ${goodsDeliverPrice}
+            goods_code : ${goodsCode}
+            item_no : ${goodsNo}
+          },\n]\n`
+  result += `\n주문가격: ${goodsQty*goodsPrice+Number(goodsDeliverPrice)}`;
+  alert(result);
+}
