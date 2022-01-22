@@ -162,47 +162,34 @@ function buyAllGoods(){
   const goodsAll = document.querySelectorAll(`#tbl_cart_list > tbody tr`);
   let result = `[`;
   for(goods of goodsAll){
-    const goodsQty = goods.querySelector(`input[name = qty]`).value;
-    if (Number(goodsQty) === 0) {
+    const goodsInfo = buyMsg(goods);
+    if(goodsInfo === undefined){
       continue;
     }
-    const goodsPrice = goods.querySelector(`input[name = amt]`).value;
-    const goodsDeliverPrice = goods.querySelector(`input[name = deliver_amt]`).value;
-    const goodsCode = goods.querySelector(`input[name = goods_code]`).value;
-    const goodsNo = goods.querySelector(`input[name = item_no]`).value;
-    result += `
-            {
-              qty : ${goodsQty}
-              amt : ${goodsPrice}
-              deliver_amt : ${goodsDeliverPrice}
-              goods_code : ${goodsCode}
-              item_no : ${goodsNo}
-            },`
+    result += goodsInfo.msg;
   }
   result += `\n]\n`;
   const total = document.querySelector(`#tbl_cart_list #total_amt`).innerHTML;
   result += `\n주문가격: ${total}원`;
   alert(result);
 }
+
+
 //주황색 개별 주문버튼
 function buyGoods(e){
   const goods = e.target.parentNode.parentNode.parentNode;
-  const goodsQty = goods.querySelector(`input[name = qty]`).value;
-  const goodsPrice = goods.querySelector(`input[name = amt]`).value;
-  const goodsDeliverPrice = goods.querySelector(`input[name = deliver_amt]`).value;
-  const goodsCode = goods.querySelector(`input[name = goods_code]`).value;
-  const goodsNo = goods.querySelector(`input[name = item_no]`).value;
-  let result = `[
-          {
-            qty : ${goodsQty}
-            amt : ${goodsPrice}
-            deliver_amt : ${goodsDeliverPrice}
-            goods_code : ${goodsCode}
-            item_no : ${goodsNo}
-          },\n]\n`
-  result += `\n주문가격: ${toCurrency(goodsQty*goodsPrice+Number(goodsDeliverPrice))}원`;
+  let result = '';
+  const goodsInfo = buyMsg(goods);
+  if(goodsInfo === undefined){
+    return;
+  }
+  result += goodsInfo.msg;
+  result += `\n]\n`;
+  const total = goodsInfo.goodsQty*goodsInfo.goodsPrice+goodsInfo.goodsDeliverPrice;
+  result += `\n주문가격: ${toCurrency(total)}원`;
   alert(result);
 }
+
 // 선택 주문 버튼기능
 function buySelectGoods(){
   const checkBoxs = document.querySelectorAll(`.g_pic input[name = choice_prd]`);
@@ -213,25 +200,36 @@ function buySelectGoods(){
       continue;
     }
     const goods = checkBox.parentNode.parentNode;
-    const goodsQty = goods.querySelector(`input[name = qty]`).value;
-    if (Number(goodsQty) === 0) {
+    const goodsInfo = buyMsg(goods);
+    if(goodsInfo === undefined){
       continue;
     }
-    const goodsPrice = goods.querySelector(`input[name = amt]`).value;
-    const goodsDeliverPrice = goods.querySelector(`input[name = deliver_amt]`).value;
-    const goodsCode = goods.querySelector(`input[name = goods_code]`).value;
-    const goodsNo = goods.querySelector(`input[name = item_no]`).value;
-    result += `
-            {
-              qty : ${goodsQty}
-              amt : ${goodsPrice}
-              deliver_amt : ${goodsDeliverPrice}
-              goods_code : ${goodsCode}
-              item_no : ${goodsNo}
-            },`
-    total += goodsQty * goodsPrice + Number(goodsDeliverPrice);
+    result += goodsInfo.msg;
+    total += goodsInfo.goodsQty * goodsInfo.goodsPrice + goodsInfo.goodsDeliverPrice;
   }
   result += `\n]\n`;
   result += `\n주문가격: ${toCurrency(total)}원`;
   alert(result);
+}
+
+//구매 메세지 생성 함수
+function buyMsg (goods){
+  let msg = '';
+  const goodsQty = Number(goods.querySelector(`input[name = qty]`).value);
+  if (goodsQty === 0) {
+    return;
+  }
+  const goodsPrice = Number(goods.querySelector(`input[name = amt]`).value);
+  const goodsDeliverPrice = Number(goods.querySelector(`input[name = deliver_amt]`).value);
+  const goodsCode = goods.querySelector(`input[name = goods_code]`).value;
+  const goodsNo = goods.querySelector(`input[name = item_no]`).value;
+  msg += `
+          {
+            qty : ${goodsQty}
+            amt : ${goodsPrice}
+            deliver_amt : ${goodsDeliverPrice}
+            goods_code : ${goodsCode}
+            item_no : ${goodsNo}
+          },`
+  return {msg, goodsQty, goodsPrice, goodsDeliverPrice, goodsCode, goodsNo};
 }
