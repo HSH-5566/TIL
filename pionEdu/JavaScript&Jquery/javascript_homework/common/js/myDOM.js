@@ -1,20 +1,25 @@
 const MAX_QTY = Number(30); // 최대수량
 const MIN_QTY = Number(1); // 최소수량
 
+// 직접 입력시 수량 검증 함수 addEvent
 var qtyElements = document.querySelectorAll("input[name=qty]");
 for (qtyElement of qtyElements) {
   qtyElement.addEventListener("blur", (event) => validationQty(event));
 }
 
+//수량 변경 버튼 onclick
 const changeBtns = document.querySelectorAll(`#tbl_cart_list tbody .modi`);
 for (changeBtn of changeBtns) {
   changeBtn.onclick = (event) => updateOrder(event);
 }
+
+//개별 삭제 버튼 onclick
 const removeBtns = document.querySelectorAll(`#tbl_cart_list .g_ord .del`);
 for (removeBtn of removeBtns) {
   removeBtn.onclick = (event) => removeGoods(event);
 }
 
+//개별 주문 버튼 onclick
 const buyBtns = document.querySelectorAll(
   `#tbl_cart_list .g_ord a:nth-child(1)`
 );
@@ -22,20 +27,27 @@ for (buyBtn of buyBtns) {
   buyBtn.onclick = (event) => buyGoods(event);
 }
 
+//체크박스로 선택된 요소 삭제 버튼 onclick
 const removeSelectBtn = document.querySelector(`.c_sel .btns a:nth-child(1)`);
 removeSelectBtn.onclick = () => removeSelectGoods();
 
+//체크박스로 선택된 요소 주문 버튼 onclick
 const buySelectBtn = document.querySelector(`.c_sel .btns a:nth-child(3)`);
 buySelectBtn.onclick = () => buySelectGoods();
 
+//모든 요소 주문 버튼 onclick
 const buyAllBtn = document.querySelector(`.c_sel .btns a:nth-child(4)`);
 buyAllBtn.onclick = () => buyAllGoods();
 
 // 0. 품절.
+// num번째 요소를 품절로 변경
 function soldOutGoods(num) {
   const goods = document.querySelector(
     `#tbl_cart_list tbody tr:nth-child(${num})`
   );
+
+  const goodsCheck = goods.querySelector(`input[name = choice_prd]`);
+  goodsCheck.disabled  = true;
 
   const goodsQty = goods.querySelector(`.g_qty .qty #cnt3`);
   const SOLD_OUT_VALUE = Number(0);
@@ -93,7 +105,7 @@ function qtyMinus(element) {
   qtyElement.value = qtyValue;
 }
 
-// 직접 수량 입력 시 수량 검증 함수
+// 직접 수량 입력 시 수량 검증 함수 blur 이용
 function validationQty(event) {
   if (event.target.value < MIN_QTY) {
     alert(`최소 수량은 ${MIN_QTY}입니다.`);
@@ -105,7 +117,7 @@ function validationQty(event) {
   }
 }
 
-//개별 주문금액 체크 Element.closest()
+//개별 주문금액 체크해 리페인팅 Element.closest()
 function updateOrder(e) {
   const goods = e.target.closest(`tr`);
 
@@ -120,7 +132,7 @@ function updateOrder(e) {
 }
 
 
-//전체 주문금액 체크
+//전체 주문금액 체크해 리페인팅
 function updateAllOrder() {
   const goodsAll = document.querySelectorAll(`#tbl_cart_list > tbody tr`);
   let goodsAllPrice = 0;
@@ -159,6 +171,9 @@ function checkAll(checkedId) {
   );
   const allCheckBoxs = document.querySelectorAll(`input[name = sel_all]`);
   checkBoxs.forEach((checkBox) => {
+    if(checkBox.disabled){
+      return;
+    }
     checkBox.checked = allCheckBox.checked;
   });
   allCheckBoxs.forEach((checkBox) => {
@@ -169,7 +184,6 @@ function checkAll(checkedId) {
 //단일 삭제기능
 function removeGoods(e) {
   const goods = e.target.closest(`tr`);
-  console.log(goods);
   goods.remove();
   updateAllOrder();
 }
