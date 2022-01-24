@@ -1,13 +1,23 @@
+const MAX_QTY = Number(30); // 최대수량
+const MIN_QTY = Number(1); // 최소수량 ?? 프라이빗하게?
+
+var qtyElements = document.querySelectorAll("input[name=qty]");
+for (qtyElement of qtyElements) {
+  qtyElement.addEventListener("blur", (event) => validationQty(event));
+}
+
 const changeBtns = document.querySelectorAll(`#tbl_cart_list tbody .modi`);
 for (changeBtn of changeBtns) {
-  changeBtn.onclick = () => updateOrder(event);
+  changeBtn.onclick = (event) => updateOrder(event);
 }
 const removeBtns = document.querySelectorAll(`#tbl_cart_list .g_ord .del`);
 for (removeBtn of removeBtns) {
   removeBtn.onclick = () => removeGoods(event);
 }
 
-const buyBtns = document.querySelectorAll(`#tbl_cart_list .g_ord a:nth-child(1)`);
+const buyBtns = document.querySelectorAll(
+  `#tbl_cart_list .g_ord a:nth-child(1)`
+);
 for (buyBtn of buyBtns) {
   buyBtn.onclick = () => buyGoods(event);
 }
@@ -55,33 +65,43 @@ soldOutGoods(1);
 function qtyPlus(element) {
   var qtyElement = element.parentNode.querySelector("input[name=qty]");
   var qtyValue = Number(qtyElement.value);
-  // console.log(qtyValue);
-  const MAX = Number(30);
 
   //최대 수량 30
-  if (qtyValue + 1 > MAX) {
+  if (qtyValue + 1 > MAX_QTY) {
     alert("최대 수량입니다.");
+    qtyElement.value = MAX_QTY;
     return;
   }
   qtyValue++;
-  qtyElement.setAttribute("value", qtyValue);
+  qtyElement.value = qtyValue;
 }
 
 // 수량빼기
 function qtyMinus(element) {
   var qtyElement = element.parentNode.querySelector("input[name=qty]");
   var qtyValue = Number(qtyElement.value);
-  const MIN = Number(1);
-  // console.log(qtyValue);
 
   //최하 수량 1
-  if (qtyValue - 1 < MIN) {
+  if (qtyValue - 1 < MIN_QTY) {
     alert("최소 수량입니다.");
+    qtyElement.value = MIN_QTY;
     return;
   }
 
   qtyValue--;
-  qtyElement.setAttribute("value", qtyValue);
+  qtyElement.value = qtyValue;
+}
+
+// 수량 검증 함수
+function validationQty(event) {
+  if (event.target.value < MIN_QTY) {
+    alert(`최소 수량은 ${MIN_QTY}입니다.`);
+    event.target.value = MIN_QTY;
+  } else if (event.target.value > 30) {
+    alert(`최대 수량은 ${MAX_QTY}입니다.`);
+    event.target.value = MAX_QTY;
+    // updateOrder(event);
+  }
 }
 
 //개별 주문금액 체크
@@ -92,6 +112,9 @@ function updateOrder(e) {
   const resultPrice = Number(goodsQty) * Number(goodsPrice);
 
   let changePrice = goods.parentNode.parentNode.querySelector(".g_prc");
+  // let changePrice = goods.parentNode.querySelector(".g_prc");
+
+  console.log(goods.parentNode.parentNode, changePrice);
   changePrice.innerHTML = `${toCurrency(resultPrice)}원`;
   updateAllOrder();
 }
@@ -128,42 +151,46 @@ updateAllOrder();
 
 //2. 선택
 // 전체 체크박스 기능
-function checkAll(checkedId){
+function checkAll(checkedId) {
   const allCheckBox = document.querySelector(`#${checkedId}`);
-  const checkBoxs = document.querySelectorAll(`.g_pic input[name = choice_prd]`);
+  const checkBoxs = document.querySelectorAll(
+    `.g_pic input[name = choice_prd]`
+  );
   const allCheckBoxs = document.querySelectorAll(`input[name = sel_all]`);
   checkBoxs.forEach((checkBox) => {
     checkBox.checked = allCheckBox.checked;
-  })
+  });
   allCheckBoxs.forEach((checkBox) => {
     checkBox.checked = allCheckBox.checked;
-  })
+  });
 }
 
 //단일 삭제기능
-function removeGoods(e){
+function removeGoods(e) {
   const goods = e.target.parentNode.parentNode;
   goods.remove();
   updateAllOrder();
 }
 
 //선택 삭제 기능
-function removeSelectGoods(){
-  const checkBoxs = document.querySelectorAll(`.g_pic input[name = choice_prd]`);
-  checkBoxs.forEach((checkBox)=>{
+function removeSelectGoods() {
+  const checkBoxs = document.querySelectorAll(
+    `.g_pic input[name = choice_prd]`
+  );
+  checkBoxs.forEach((checkBox) => {
     checkBox.checked ? checkBox.parentNode.parentNode.remove() : null;
-  })
+  });
   updateAllOrder();
 }
 
 //3. 주문
 // 전체 주문버튼 기능 qty,amt,deliver_amt,goods_code,item_no
-function buyAllGoods(){
+function buyAllGoods() {
   const goodsAll = document.querySelectorAll(`#tbl_cart_list > tbody tr`);
   let result = `[`;
-  for(goods of goodsAll){
+  for (goods of goodsAll) {
     const goodsInfo = buyMsg(goods);
-    if(goodsInfo === undefined){
+    if (goodsInfo === undefined) {
       continue;
     }
     result += goodsInfo.msg;
@@ -174,38 +201,41 @@ function buyAllGoods(){
   alert(result);
 }
 
-
 //주황색 개별 주문버튼
-function buyGoods(e){
+function buyGoods(e) {
   const goods = e.target.parentNode.parentNode.parentNode;
-  let result = '';
+  let result = "";
   const goodsInfo = buyMsg(goods);
-  if(goodsInfo === undefined){
+  if (goodsInfo === undefined) {
     return;
   }
   result += goodsInfo.msg;
   result += `\n]\n`;
-  const total = goodsInfo.goodsQty*goodsInfo.goodsPrice+goodsInfo.goodsDeliverPrice;
+  const total =
+    goodsInfo.goodsQty * goodsInfo.goodsPrice + goodsInfo.goodsDeliverPrice;
   result += `\n주문가격: ${toCurrency(total)}원`;
   alert(result);
 }
 
 // 선택 주문 버튼기능
-function buySelectGoods(){
-  const checkBoxs = document.querySelectorAll(`.g_pic input[name = choice_prd]`);
+function buySelectGoods() {
+  const checkBoxs = document.querySelectorAll(
+    `.g_pic input[name = choice_prd]`
+  );
   let result = `[`;
   let total = 0;
-  for(checkBox of checkBoxs){
-    if(!checkBox.checked){
+  for (checkBox of checkBoxs) {
+    if (!checkBox.checked) {
       continue;
     }
     const goods = checkBox.parentNode.parentNode;
     const goodsInfo = buyMsg(goods);
-    if(goodsInfo === undefined){
+    if (goodsInfo === undefined) {
       continue;
     }
     result += goodsInfo.msg;
-    total += goodsInfo.goodsQty * goodsInfo.goodsPrice + goodsInfo.goodsDeliverPrice;
+    total +=
+      goodsInfo.goodsQty * goodsInfo.goodsPrice + goodsInfo.goodsDeliverPrice;
   }
   result += `\n]\n`;
   result += `\n주문가격: ${toCurrency(total)}원`;
@@ -213,14 +243,16 @@ function buySelectGoods(){
 }
 
 //구매 메세지 생성 함수
-function buyMsg (goods){
-  let msg = '';
+function buyMsg(goods) {
+  let msg = "";
   const goodsQty = Number(goods.querySelector(`input[name = qty]`).value);
   if (goodsQty === 0) {
     return;
   }
   const goodsPrice = Number(goods.querySelector(`input[name = amt]`).value);
-  const goodsDeliverPrice = Number(goods.querySelector(`input[name = deliver_amt]`).value);
+  const goodsDeliverPrice = Number(
+    goods.querySelector(`input[name = deliver_amt]`).value
+  );
   const goodsCode = goods.querySelector(`input[name = goods_code]`).value;
   const goodsNo = goods.querySelector(`input[name = item_no]`).value;
   msg += `
@@ -230,6 +262,6 @@ function buyMsg (goods){
             deliver_amt : ${goodsDeliverPrice}
             goods_code : ${goodsCode}
             item_no : ${goodsNo}
-          },`
-  return {msg, goodsQty, goodsPrice, goodsDeliverPrice, goodsCode, goodsNo};
+          },`;
+  return { msg, goodsQty, goodsPrice, goodsDeliverPrice, goodsCode, goodsNo };
 }
