@@ -110,7 +110,7 @@ function validationQty(event) {
   if (event.target.value < MIN_QTY) {
     alert(`최소 수량은 ${MIN_QTY}입니다.`);
     event.target.value = MIN_QTY;
-  } else if (event.target.value > 30) {
+  } else if (event.target.value > MAX_QTY) {
     alert(`최대 수량은 ${MAX_QTY}입니다.`);
     event.target.value = MAX_QTY;
     updateOrder(event);
