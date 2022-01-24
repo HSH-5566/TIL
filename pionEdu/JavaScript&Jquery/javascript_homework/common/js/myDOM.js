@@ -1,5 +1,5 @@
 const MAX_QTY = Number(30); // 최대수량
-const MIN_QTY = Number(1); // 최소수량 ?? 프라이빗하게?
+const MIN_QTY = Number(1); // 최소수량
 
 var qtyElements = document.querySelectorAll("input[name=qty]");
 for (qtyElement of qtyElements) {
