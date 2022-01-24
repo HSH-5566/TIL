@@ -36,9 +36,10 @@ function soldOutGoods(num) {
   const goods = document.querySelector(
     `#tbl_cart_list tbody tr:nth-child(${num})`
   );
+
   const goodsQty = goods.querySelector(`.g_qty .qty #cnt3`);
-  const qtyValue = 0;
-  goodsQty.setAttribute("value", qtyValue);
+  const SOLD_OUT_VALUE = Number(0);
+  goodsQty.setAttribute("value", SOLD_OUT_VALUE);
   goodsQty.disabled = true;
 
   const goodsQtyPlusBtn = goods.querySelector(`.g_qty .qty .plus`);
@@ -92,7 +93,7 @@ function qtyMinus(element) {
   qtyElement.value = qtyValue;
 }
 
-// 수량 검증 함수
+// 직접 수량 입력 시 수량 검증 함수
 function validationQty(event) {
   if (event.target.value < MIN_QTY) {
     alert(`최소 수량은 ${MIN_QTY}입니다.`);
@@ -100,25 +101,24 @@ function validationQty(event) {
   } else if (event.target.value > 30) {
     alert(`최대 수량은 ${MAX_QTY}입니다.`);
     event.target.value = MAX_QTY;
-    // updateOrder(event);
+    updateOrder(event);
   }
 }
 
 //개별 주문금액 체크 Element.closest()
 function updateOrder(e) {
-  const goods = e.target.parentNode.parentNode;
+  const goods = e.target.closest(`tr`);
 
   const goodsQty = goods.querySelector("input[name = qty]").value;
-  const goodsPrice = goods.parentNode.querySelector("input[name = amt]").value;
+  const goodsPrice = goods.querySelector("input[name = amt]").value;
   const resultPrice = Number(goodsQty) * Number(goodsPrice);
 
-  let changePrice = goods.parentNode.parentNode.querySelector(".g_prc");
-  // let changePrice = goods.parentNode.querySelector(".g_prc");
+  let changePrice = goods.querySelector(".g_prc");
 
-  console.log(goods.parentNode.parentNode, changePrice);
   changePrice.innerHTML = `${toCurrency(resultPrice)}원`;
   updateAllOrder();
 }
+
 
 //전체 주문금액 체크
 function updateAllOrder() {
@@ -168,7 +168,8 @@ function checkAll(checkedId) {
 
 //단일 삭제기능
 function removeGoods(e) {
-  const goods = e.target.parentNode.parentNode;
+  const goods = e.target.closest(`tr`);
+  console.log(goods);
   goods.remove();
   updateAllOrder();
 }
@@ -179,7 +180,7 @@ function removeSelectGoods() {
     `.g_pic input[name = choice_prd]`
   );
   checkBoxs.forEach((checkBox) => {
-    checkBox.checked ? checkBox.parentNode.parentNode.remove() : null;
+    checkBox.checked ? checkBox.closest(`tr`).remove() : null;
   });
   updateAllOrder();
 }
@@ -204,8 +205,8 @@ function buyAllGoods() {
 
 //주황색 개별 주문버튼
 function buyGoods(e) {
-  const goods = e.target.parentNode.parentNode.parentNode;
-  let result = "";
+  const goods = e.target.closest(`tr`);
+  let result = "[";
   const goodsInfo = buyMsg(goods);
   if (goodsInfo === undefined) {
     return;
@@ -229,7 +230,7 @@ function buySelectGoods() {
     if (!checkBox.checked) {
       continue;
     }
-    const goods = checkBox.parentNode.parentNode;
+    const goods = checkBox.closest(`tr`);
     const goodsInfo = buyMsg(goods);
     if (goodsInfo === undefined) {
       continue;
