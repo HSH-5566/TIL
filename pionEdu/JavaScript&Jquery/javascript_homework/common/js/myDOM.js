@@ -12,14 +12,14 @@ for (changeBtn of changeBtns) {
 }
 const removeBtns = document.querySelectorAll(`#tbl_cart_list .g_ord .del`);
 for (removeBtn of removeBtns) {
-  removeBtn.onclick = () => removeGoods(event);
+  removeBtn.onclick = (event) => removeGoods(event);
 }
 
 const buyBtns = document.querySelectorAll(
   `#tbl_cart_list .g_ord a:nth-child(1)`
 );
 for (buyBtn of buyBtns) {
-  buyBtn.onclick = () => buyGoods(event);
+  buyBtn.onclick = (event) => buyGoods(event);
 }
 
 const removeSelectBtn = document.querySelector(`.c_sel .btns a:nth-child(1)`);
@@ -104,9 +104,10 @@ function validationQty(event) {
   }
 }
 
-//개별 주문금액 체크
+//개별 주문금액 체크 Element.closest()
 function updateOrder(e) {
   const goods = e.target.parentNode.parentNode;
+
   const goodsQty = goods.querySelector("input[name = qty]").value;
   const goodsPrice = goods.parentNode.querySelector("input[name = amt]").value;
   const resultPrice = Number(goodsQty) * Number(goodsPrice);
