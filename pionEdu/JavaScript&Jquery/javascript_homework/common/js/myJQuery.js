@@ -114,25 +114,21 @@ function updateAllOrder() {
     if (Number(goodsQty) === 0) {
       continue;
     }
-    const goodsPrice = $(goodsAll[i]).find(`input[name = amt]`)[0];
-    console.log(goodsQty, goodsPrice);
+    const goodsPrice = $(goodsAll[i]).find(`input[name = amt]`)[0].value;
+    const deliverPrice = Number(
+      $(goodsAll[i]).find(`input[name = deliver_amt]`)[0].value
+    );
+    goodsAllPrice += goodsQty * goodsPrice;
+    deliverAllPrice += deliverPrice;
   }
-  // for (goods of goodsAll) {
-  //   const goodsPrice = goods.querySelector(`input[name = amt]`).value;
-  //   const deliverPrice = goods.querySelector(`input[name = deliver_amt]`).value;
-  //   goodsAllPrice += goodsQty.value * goodsPrice;
-  //   deliverAllPrice += Number(deliverPrice);
-  // }
-  // resultPrice = goodsAllPrice + deliverAllPrice;
-
-  // const orderSum = document.querySelector(`#tbl_cart_list #ord_amt`);
-  // const orderDeliverSum = document.querySelector(
-  //   `#tbl_cart_list #deliver_total_amt`
-  // );
-  // const total = document.querySelector(`#tbl_cart_list #total_amt`);
-  // orderSum.innerHTML = toCurrency(goodsAllPrice);
-  // orderDeliverSum.innerHTML = toCurrency(deliverAllPrice);
-  // total.innerHTML = toCurrency(resultPrice);
+  resultPrice = goodsAllPrice + deliverAllPrice;
+  const orderSum = $(document).find(`#tbl_cart_list #ord_amt`)[0];
+  const orderDeliverSum = $(document).find(
+    `#tbl_cart_list #deliver_total_amt`
+  )[0];
+  const total = $(document).find(`#tbl_cart_list #total_amt`)[0];
+  orderSum.innerHTML = toCurrency(goodsAllPrice);
+  orderDeliverSum.innerHTML = toCurrency(deliverAllPrice);
+  total.innerHTML = toCurrency(resultPrice);
 }
-
 updateAllOrder();
