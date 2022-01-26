@@ -47,7 +47,7 @@ function soldOutGoods(num) {
   );
 
   const goodsCheck = goods.querySelector(`input[name = choice_prd]`);
-  goodsCheck.disabled  = true;
+  goodsCheck.disabled = true;
 
   const goodsQty = goods.querySelector(`.g_qty .qty #cnt3`);
   const SOLD_OUT_VALUE = Number(0);
@@ -66,10 +66,10 @@ function soldOutGoods(num) {
   goodsBuyBtn.onclick = null;
 
   const goodsPrice = goods.querySelector(`.g_prc`);
-  const deliveryCharge = goods.querySelector(`.g_dvr`);
+  const deliveryPrice = goods.querySelector(`.g_dvr`);
   const GOODS_SOLD_OUT = `<span>품절</span>`;
   goodsPrice.innerHTML = GOODS_SOLD_OUT;
-  deliveryCharge.innerHTML = GOODS_SOLD_OUT;
+  deliveryPrice.innerHTML = GOODS_SOLD_OUT;
 }
 soldOutGoods(1);
 
@@ -131,7 +131,6 @@ function updateOrder(e) {
   updateAllOrder();
 }
 
-
 //전체 주문금액 체크해 리페인팅
 function updateAllOrder() {
   const goodsAll = document.querySelectorAll(`#tbl_cart_list > tbody tr`);
@@ -171,7 +170,7 @@ function checkAll(checkedId) {
   );
   const allCheckBoxs = document.querySelectorAll(`input[name = sel_all]`);
   checkBoxs.forEach((checkBox) => {
-    if(checkBox.disabled){
+    if (checkBox.disabled) {
       return;
     }
     checkBox.checked = allCheckBox.checked;

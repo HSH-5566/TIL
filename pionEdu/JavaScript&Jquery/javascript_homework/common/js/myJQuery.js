@@ -21,10 +21,10 @@ function soldOutGoods(num) {
   const goodsBuyBtn = $(goods).find(`.g_ord > a`)[0];
   goodsBuyBtn.onclick = null;
 
-  // const goodsPrice = goods.querySelector(`.g_prc`);
-  // const deliveryCharge = goods.querySelector(`.g_dvr`);
-  // const GOODS_SOLD_OUT = `<span>품절</span>`;
-  // goodsPrice.innerHTML = GOODS_SOLD_OUT;
-  // deliveryCharge.innerHTML = GOODS_SOLD_OUT;
+  const goodsPrice = $(goods).find(`.g_prc`)[0];
+  const deliveryPrice = $(goods).find(`.g_dvr`)[0];
+  const GOODS_SOLD_OUT = `<span>품절</span>`;
+  goodsPrice.innerHTML = GOODS_SOLD_OUT;
+  deliveryPrice.innerHTML = GOODS_SOLD_OUT;
 }
 soldOutGoods(1);
