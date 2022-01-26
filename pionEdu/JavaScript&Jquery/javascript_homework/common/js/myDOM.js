@@ -106,14 +106,15 @@ function qtyMinus(element) {
 }
 
 // 직접 수량 입력 시 수량 검증 함수 blur 이용
-function validationQty(event) {
-  if (event.target.value < MIN_QTY) {
+function validationQty(e) {
+  if (e.target.value < MIN_QTY) {
     alert(`최소 수량은 ${MIN_QTY}입니다.`);
-    event.target.value = MIN_QTY;
-  } else if (event.target.value > MAX_QTY) {
+    e.target.value = MIN_QTY;
+    updateOrder(e);
+  } else if (e.target.value > MAX_QTY) {
     alert(`최대 수량은 ${MAX_QTY}입니다.`);
-    event.target.value = MAX_QTY;
-    updateOrder(event);
+    e.target.value = MAX_QTY;
+    updateOrder(e);
   }
 }
 
@@ -125,7 +126,7 @@ function updateOrder(e) {
   const goodsPrice = goods.querySelector("input[name = amt]").value;
   const resultPrice = Number(goodsQty) * Number(goodsPrice);
 
-  let changePrice = goods.querySelector(".g_prc");
+  let changePrice = goods.querySelector(".g_prc span");
 
   changePrice.innerHTML = `${toCurrency(resultPrice)}원`;
   updateAllOrder();

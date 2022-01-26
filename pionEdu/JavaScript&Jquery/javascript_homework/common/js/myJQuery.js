@@ -2,13 +2,17 @@ const MAX_QTY = Number(30); // 최대수량
 const MIN_QTY = Number(1); // 최소수량
 
 // 직접 입력시 수량 검증 함수 on blur
-$(document).ready(function () {
-  var qtyElements = $(document).find(`input[name=qty]`);
-  for (idx in qtyElements) {
-    console.log(qtyElements[idx])
-    // $(qtyElements[idx]).on("blur", (event) => validationQty(event));
-  }
-});
+const qtyElements = $(document).find(`input[name=qty]`);
+for (var i = 0; i < qtyElements.length; i++) {
+  $(qtyElements[i]).on("blur", (event) => validationQty(event));
+}
+
+//수량 변경 버튼 on
+
+const changeBtns = $(document).find(`#tbl_cart_list tbody .modi`);
+for (var i = 0; i < changeBtns.length; i++) {
+  $(changeBtns[i]).on("click", (event) => updateOrder(event));
+}
 
 // 0. 품절.
 // num번째 요소를 품절로 변경
@@ -74,13 +78,57 @@ function qtyMinus(element) {
 }
 
 // 직접 수량 입력 시 수량 검증 함수 blur 이용
-function validationQty(event) {
-  if (event.target.value < MIN_QTY) {
+function validationQty(e) {
+  if (e.target.value < MIN_QTY) {
     alert(`최소 수량은 ${MIN_QTY}입니다.`);
-    event.target.value = MIN_QTY;
-  } else if (event.target.value > MAX_QTY) {
+    e.target.value = MIN_QTY;
+    updateOrder(e);
+  } else if (e.target.value > MAX_QTY) {
     alert(`최대 수량은 ${MAX_QTY}입니다.`);
-    event.target.value = MAX_QTY;
-    updateOrder(event);
+    e.target.value = MAX_QTY;
+    updateOrder(e);
   }
 }
+
+//개별 주문금액 체크해 리페인팅
+function updateOrder(e) {
+  const goods = $(e.target).parents(`tr`);
+
+  const goodsQty = $(goods).find(`input[name = qty]`)[0].value;
+  const goodsPrice = $(goods).find(`input[name = amt]`)[0].value;
+  const resultPrice = Number(goodsQty) * Number(goodsPrice);
+
+  let changePrice = $(goods).find(`.g_prc span`)[0];
+  changePrice.innerHTML = `${toCurrency(resultPrice)}원`;
+  updateAllOrder();
+}
+
+//전체 주문금액 체크해 리페인팅
+function updateAllOrder() {
+  const goodsAll = document.querySelectorAll(`#tbl_cart_list > tbody tr`);
+  let goodsAllPrice = 0;
+  let deliverAllPrice = 0;
+  let resultPrice = 0;
+  for (goods of goodsAll) {
+    const goodsQty = goods.querySelector(`input[name = qty]`);
+    if (Number(goodsQty.value) === 0) {
+      continue;
+    }
+    const goodsPrice = goods.querySelector(`input[name = amt]`).value;
+    const deliverPrice = goods.querySelector(`input[name = deliver_amt]`).value;
+    goodsAllPrice += goodsQty.value * goodsPrice;
+    deliverAllPrice += Number(deliverPrice);
+  }
+  resultPrice = goodsAllPrice + deliverAllPrice;
+
+  const orderSum = document.querySelector(`#tbl_cart_list #ord_amt`);
+  const orderDeliverSum = document.querySelector(
+    `#tbl_cart_list #deliver_total_amt`
+  );
+  const total = document.querySelector(`#tbl_cart_list #total_amt`);
+  orderSum.innerHTML = toCurrency(goodsAllPrice);
+  orderDeliverSum.innerHTML = toCurrency(deliverAllPrice);
+  total.innerHTML = toCurrency(resultPrice);
+}
+
+updateAllOrder();
