@@ -7,12 +7,21 @@ for (var i = 0; i < qtyElements.length; i++) {
   $(qtyElements[i]).on("blur", (event) => validationQty(event));
 }
 
-//수량 변경 버튼 on
-
+//수량 변경 버튼 on click
 const changeBtns = $(document).find(`#tbl_cart_list tbody .modi`);
 for (var i = 0; i < changeBtns.length; i++) {
   $(changeBtns[i]).on("click", (event) => updateOrder(event));
 }
+
+//개별 삭제 버튼 on click
+const removeBtns = $(document).find(`#tbl_cart_list .g_ord .del`);
+for (var i = 0; i < removeBtns.length; i++) {
+  $(removeBtns[i]).on("click", (event) => removeGoods(event));
+}
+
+//체크박스로 선택된 요소 삭제 버튼 on click
+const removeSelectBtn = document.querySelector(`.c_sel .btns a:nth-child(1)`);
+removeSelectBtn.onclick = () => removeSelectGoods();
 
 // 0. 품절.
 // num번째 요소를 품절로 변경
@@ -132,3 +141,39 @@ function updateAllOrder() {
   total.innerHTML = toCurrency(resultPrice);
 }
 updateAllOrder();
+
+//2. 선택
+// 전체 체크박스 기능
+function checkAll(checkedId) {
+  const allCheckBox = $(document).find(`#${checkedId}`)[0];
+  const checkBoxs = $(document).find(`.g_pic input[name = choice_prd]`);
+  const allCheckBoxs = $(document).find(`input[name = sel_all]`);
+  for (var i = 0; i < checkBoxs.length; i++) {
+    if (checkBoxs[i].disabled) {
+      continue;
+    }
+    checkBoxs[i].checked = allCheckBox.checked;
+  }
+  for (var i = 0; i < allCheckBoxs.length; i++) {
+    allCheckBoxs[i].checked = allCheckBox.checked;
+  }
+}
+
+//단일 삭제기능
+function removeGoods(e) {
+  const goods = $(e.target).parents(`tr`);
+  goods.remove();
+  updateAllOrder();
+}
+
+//선택 삭제 기능
+function removeSelectGoods() {
+  console.log("aaaa");
+  // const checkBoxs = document.querySelectorAll(
+  //   `.g_pic input[name = choice_prd]`
+  // );
+  // checkBoxs.forEach((checkBox) => {
+  //   checkBox.checked ? checkBox.closest(`tr`).remove() : null;
+  // });
+  // updateAllOrder();
+}
