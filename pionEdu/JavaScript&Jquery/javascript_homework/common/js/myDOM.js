@@ -139,13 +139,13 @@ function updateAllOrder() {
   let deliverAllPrice = 0;
   let resultPrice = 0;
   for (goods of goodsAll) {
-    const goodsQty = goods.querySelector(`input[name = qty]`);
-    if (Number(goodsQty.value) === 0) {
+    const goodsQty = goods.querySelector(`input[name = qty]`).value;
+    if (Number(goodsQty) === 0) {
       continue;
     }
     const goodsPrice = goods.querySelector(`input[name = amt]`).value;
     const deliverPrice = goods.querySelector(`input[name = deliver_amt]`).value;
-    goodsAllPrice += goodsQty.value * goodsPrice;
+    goodsAllPrice += goodsQty * goodsPrice;
     deliverAllPrice += Number(deliverPrice);
   }
   resultPrice = goodsAllPrice + deliverAllPrice;

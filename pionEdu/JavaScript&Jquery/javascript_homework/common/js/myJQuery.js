@@ -105,30 +105,34 @@ function updateOrder(e) {
 
 //전체 주문금액 체크해 리페인팅
 function updateAllOrder() {
-  const goodsAll = document.querySelectorAll(`#tbl_cart_list > tbody tr`);
+  const goodsAll = $(document).find(`#tbl_cart_list > tbody tr`);
   let goodsAllPrice = 0;
   let deliverAllPrice = 0;
   let resultPrice = 0;
-  for (goods of goodsAll) {
-    const goodsQty = goods.querySelector(`input[name = qty]`);
-    if (Number(goodsQty.value) === 0) {
+  for (var i = 0; i < goodsAll.length; i++) {
+    const goodsQty = $(goodsAll[i]).find(`input[name = qty]`)[0].value;
+    if (Number(goodsQty) === 0) {
       continue;
     }
-    const goodsPrice = goods.querySelector(`input[name = amt]`).value;
-    const deliverPrice = goods.querySelector(`input[name = deliver_amt]`).value;
-    goodsAllPrice += goodsQty.value * goodsPrice;
-    deliverAllPrice += Number(deliverPrice);
+    const goodsPrice = $(goodsAll[i]).find(`input[name = amt]`)[0];
+    console.log(goodsQty, goodsPrice);
   }
-  resultPrice = goodsAllPrice + deliverAllPrice;
+  // for (goods of goodsAll) {
+  //   const goodsPrice = goods.querySelector(`input[name = amt]`).value;
+  //   const deliverPrice = goods.querySelector(`input[name = deliver_amt]`).value;
+  //   goodsAllPrice += goodsQty.value * goodsPrice;
+  //   deliverAllPrice += Number(deliverPrice);
+  // }
+  // resultPrice = goodsAllPrice + deliverAllPrice;
 
-  const orderSum = document.querySelector(`#tbl_cart_list #ord_amt`);
-  const orderDeliverSum = document.querySelector(
-    `#tbl_cart_list #deliver_total_amt`
-  );
-  const total = document.querySelector(`#tbl_cart_list #total_amt`);
-  orderSum.innerHTML = toCurrency(goodsAllPrice);
-  orderDeliverSum.innerHTML = toCurrency(deliverAllPrice);
-  total.innerHTML = toCurrency(resultPrice);
+  // const orderSum = document.querySelector(`#tbl_cart_list #ord_amt`);
+  // const orderDeliverSum = document.querySelector(
+  //   `#tbl_cart_list #deliver_total_amt`
+  // );
+  // const total = document.querySelector(`#tbl_cart_list #total_amt`);
+  // orderSum.innerHTML = toCurrency(goodsAllPrice);
+  // orderDeliverSum.innerHTML = toCurrency(deliverAllPrice);
+  // total.innerHTML = toCurrency(resultPrice);
 }
 
 updateAllOrder();
