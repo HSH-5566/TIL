@@ -22,7 +22,7 @@ $(document).ready(() => {
   }
 
   //체크박스로 선택된 요소 삭제 버튼 on click
-  const removeSelectBtn = document.querySelector(`.c_sel .btns a:nth-child(1)`);
+  const removeSelectBtn = $(document).find(`.c_sel .btns a:nth-child(1)`)[0];
   $(removeSelectBtn).on("click", () => removeSelectGoods());
 
   //모든 요소 주문 버튼 onclick
@@ -59,6 +59,8 @@ function soldOutGoods(num) {
 
   const goodsChangeBtn = $(goods).find(`.modi`)[0];
   goodsChangeBtn.onclick = null;
+  // $(goodsChangeBtn).off();
+  // $(document).off("click", goodsChangeBtn, updateOrder);
 
   const goodsBuyBtn = $(goods).find(`.g_ord > a`)[0];
   goodsBuyBtn.onclick = null;
@@ -69,6 +71,8 @@ function soldOutGoods(num) {
   goodsPrice.innerHTML = GOODS_SOLD_OUT;
   deliveryPrice.innerHTML = GOODS_SOLD_OUT;
 }
+
+//첫번째 상품 품절
 soldOutGoods(1);
 
 // 1. 수량
@@ -121,6 +125,7 @@ function updateOrder(e) {
   const goods = $(e.target).parents(`tr`);
 
   const goodsQty = Number($(goods).find(`input[name = qty]`)[0].value);
+  console.log(goodsQty);
   if (goodsQty === 0) {
     return;
   }
@@ -160,6 +165,8 @@ function updateAllOrder() {
   orderDeliverSum.innerHTML = toCurrency(deliverAllPrice);
   total.innerHTML = toCurrency(resultPrice);
 }
+
+//초기 최종 금액 출력
 updateAllOrder();
 
 //2. 선택
