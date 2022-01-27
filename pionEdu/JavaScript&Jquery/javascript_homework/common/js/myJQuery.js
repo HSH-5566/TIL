@@ -6,15 +6,15 @@ const currentSoldOuts = [1]; // 품절 상품 배열: 첫번째 상품 선택
 $(document).ready(() => {
   // 직접 입력시 수량 검증 함수 on blur
   const qtyElements = $(document).find(`input[name=qty]`);
-  for (var i = 0; i < qtyElements.length; i++) {
-    $(qtyElements[i]).on("blur", (e) => validationQty(e));
-  }
+  qtyElements.each(function () {
+    $(this).on("blur", (e) => validationQty(e));
+  });
 
   //수량 변경 버튼 on click
   const changeBtns = $(document).find(`#tbl_cart_list tbody .modi`);
-  for (var i = 0; i < changeBtns.length; i++) {
-    $(changeBtns[i]).on("click", (e) => updateOrder(e));
-  }
+  changeBtns.each(function () {
+    $(this).on("click", (e) => updateOrder(e));
+  });
 
   //체크박스로 선택된 요소 삭제 버튼 on click
   const removeSelectBtn = $(document).find(`.c_sel .btns a:nth-child(1)`)[0];
@@ -26,15 +26,15 @@ $(document).ready(() => {
 
   //개별 주문 버튼 on click
   const buyBtns = $(document).find(`#tbl_cart_list .g_ord a:nth-child(1)`);
-  for (var i = 0; i < buyBtns.length; i++) {
-    $(buyBtns[i]).on("click", (e) => buyGoods(e));
-  }
+  buyBtns.each(function () {
+    $(this).on("click", (e) => buyGoods(e));
+  });
 
   //개별 삭제 버튼 on click
   const removeBtns = $(document).find(`#tbl_cart_list .g_ord .del`);
-  for (var i = 0; i < removeBtns.length; i++) {
-    $(removeBtns[i]).on("click", (e) => removeGoods(e));
-  }
+  removeBtns.each(function () {
+    $(this).on("click", (e) => removeGoods(e));
+  });
 
   //체크박스로 선택된 요소 주문 버튼 onclick
   const buySelectBtn = $(document).find(`.c_sel .btns a:nth-child(3)`)[0];
@@ -143,18 +143,19 @@ function updateAllOrder() {
   let goodsAllPrice = 0;
   let deliverAllPrice = 0;
   let resultPrice = 0;
-  for (var i = 0; i < goodsAll.length; i++) {
-    const goodsQty = $(goodsAll[i]).find(`input[name = qty]`)[0].value;
+
+  goodsAll.each(function () {
+    const goodsQty = $(this).find(`input[name = qty]`)[0].value;
     if (Number(goodsQty) === 0) {
-      continue;
+      return;
     }
-    const goodsPrice = $(goodsAll[i]).find(`input[name = amt]`)[0].value;
+    const goodsPrice = $(this).find(`input[name = amt]`)[0].value;
     const deliverPrice = Number(
-      $(goodsAll[i]).find(`input[name = deliver_amt]`)[0].value
+      $(this).find(`input[name = deliver_amt]`)[0].value
     );
     goodsAllPrice += goodsQty * goodsPrice;
     deliverAllPrice += deliverPrice;
-  }
+  });
   resultPrice = goodsAllPrice + deliverAllPrice;
   const orderSum = $(document).find(`#tbl_cart_list #ord_amt`)[0];
   const orderDeliverSum = $(document).find(
@@ -175,15 +176,18 @@ function checkAll(checkedId) {
   const allCheckBox = $(document).find(`#${checkedId}`)[0];
   const checkBoxs = $(document).find(`.g_pic input[name = choice_prd]`);
   const allCheckBoxs = $(document).find(`input[name = sel_all]`);
-  for (var i = 0; i < checkBoxs.length; i++) {
-    if (checkBoxs[i].disabled) {
-      continue;
+  checkBoxs.each(function () {
+    if (this.disabled) {
+      return;
     }
-    checkBoxs[i].checked = allCheckBox.checked;
-  }
-  for (var i = 0; i < allCheckBoxs.length; i++) {
-    allCheckBoxs[i].checked = allCheckBox.checked;
-  }
+    this.checked = allCheckBox.checked;
+  });
+  allCheckBoxs.each(function () {
+    if (this.disabled) {
+      return;
+    }
+    this.checked = allCheckBox.checked;
+  });
 }
 
 //단일 삭제기능
@@ -196,9 +200,9 @@ function removeGoods(e) {
 //선택 삭제 기능 - 품절 상품제외하고 체크된 것만 삭제
 function removeSelectGoods() {
   const checkBoxs = $(document).find(`.g_pic input[name = choice_prd]`);
-  for (var i = 0; i < checkBoxs.length; i++) {
-    checkBoxs[i].checked ? $(checkBoxs[i]).parents(`tr`)[0].remove() : null;
-  }
+  checkBoxs.each(function () {
+    this.checked ? $(this).parents(`tr`).remove() : null;
+  });
   updateAllOrder();
 }
 
@@ -207,13 +211,15 @@ function removeSelectGoods() {
 function buyAllGoods() {
   const goodsAll = $(document).find(`#tbl_cart_list > tbody tr`);
   let result = `[`;
-  for (var i = 0; i < goodsAll.length; i++) {
-    const goodsInfo = buyMsg(goodsAll[i]);
+
+  goodsAll.each(function () {
+    const goodsInfo = buyMsg(this);
     if (goodsInfo === undefined) {
-      continue;
+      return;
     }
     result += goodsInfo.msg;
-  }
+  });
+
   result += `\n]\n`;
   const total = $(document).find(`#tbl_cart_list #total_amt`)[0].innerHTML;
   result += `\n주문가격: ${total}원`;
@@ -241,19 +247,21 @@ function buySelectGoods() {
   const checkBoxs = $(document).find(`.g_pic input[name = choice_prd]`);
   let result = `[`;
   let total = 0;
-  for (var i = 0; i < checkBoxs.length; i++) {
-    if (!checkBoxs[i].checked) {
-      continue;
+
+  checkBoxs.each(function () {
+    if (!this.checked) {
+      return;
     }
-    const goods = $(checkBoxs[i]).parents(`tr`)[0];
+    const goods = $(this).parents(`tr`);
     const goodsInfo = buyMsg(goods);
     if (goodsInfo === undefined) {
-      continue;
+      return;
     }
     result += goodsInfo.msg;
     total +=
       goodsInfo.goodsQty * goodsInfo.goodsPrice + goodsInfo.goodsDeliverPrice;
-  }
+  });
+
   result += `\n]\n`;
   result += `\n주문가격: ${toCurrency(total)}원`;
   alert(result);
