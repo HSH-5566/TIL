@@ -21,7 +21,21 @@ for (var i = 0; i < removeBtns.length; i++) {
 
 //체크박스로 선택된 요소 삭제 버튼 on click
 const removeSelectBtn = document.querySelector(`.c_sel .btns a:nth-child(1)`);
-removeSelectBtn.onclick = () => removeSelectGoods();
+$(removeSelectBtn).on("click", () => removeSelectGoods());
+
+//모든 요소 주문 버튼 onclick
+const buyAllBtn = $(document).find(`.c_sel .btns a:nth-child(4)`)[0];
+$(buyAllBtn).on("click", () => buyAllGoods());
+
+//개별 주문 버튼 onclick
+const buyBtns = $(document).find(`#tbl_cart_list .g_ord a:nth-child(1)`);
+for (var i = 0; i < buyBtns.length; i++) {
+  $(buyBtns[i]).on("click", (event) => buyGoods(event));
+}
+
+//체크박스로 선택된 요소 주문 버튼 onclick
+const buySelectBtn = $(document).find(`.c_sel .btns a:nth-child(3)`)[0];
+$(buySelectBtn).on("click", () => buySelectGoods());
 
 // 0. 품절.
 // num번째 요소를 품절로 변경
@@ -143,7 +157,7 @@ function updateAllOrder() {
 updateAllOrder();
 
 //2. 선택
-// 전체 체크박스 기능
+// 전체 체크박스 기능 - 품절 상품 제외하고 모두 선택
 function checkAll(checkedId) {
   const allCheckBox = $(document).find(`#${checkedId}`)[0];
   const checkBoxs = $(document).find(`.g_pic input[name = choice_prd]`);
@@ -166,14 +180,94 @@ function removeGoods(e) {
   updateAllOrder();
 }
 
-//선택 삭제 기능
+//선택 삭제 기능 - 품절 상품제외하고 체크된 것만 삭제
 function removeSelectGoods() {
-  console.log("aaaa");
-  // const checkBoxs = document.querySelectorAll(
-  //   `.g_pic input[name = choice_prd]`
-  // );
-  // checkBoxs.forEach((checkBox) => {
-  //   checkBox.checked ? checkBox.closest(`tr`).remove() : null;
-  // });
-  // updateAllOrder();
+  const checkBoxs = $(document).find(`.g_pic input[name = choice_prd]`);
+  for (var i = 0; i < checkBoxs.length; i++) {
+    checkBoxs[i].checked ? $(checkBoxs[i]).parents(`tr`)[0].remove() : null;
+  }
+  updateAllOrder();
+}
+
+//3. 주문
+// 전체 주문버튼 기능 qty,amt,deliver_amt,goods_code,item_no
+function buyAllGoods() {
+  // const goodsAll = document.querySelectorAll(`#tbl_cart_list > tbody tr`);
+  const goodsAll = $(document).find(`#tbl_cart_list > tbody tr`);
+  let result = `[`;
+  for (var i = 0; i < goodsAll.length; i++) {
+    const goodsInfo = buyMsg(goodsAll[i]);
+    if (goodsInfo === undefined) {
+      continue;
+    }
+    result += goodsInfo.msg;
+  }
+  result += `\n]\n`;
+  const total = $(document).find(`#tbl_cart_list #total_amt`)[0].innerHTML;
+  result += `\n주문가격: ${total}원`;
+  alert(result);
+}
+
+//주황색 개별 주문버튼
+function buyGoods(e) {
+  const goods = $(e.target).parents(`tr`)[0];
+  let result = "[";
+  const goodsInfo = buyMsg(goods);
+  if (goodsInfo === undefined) {
+    return;
+  }
+  result += goodsInfo.msg;
+  result += `\n]\n`;
+  const total =
+    goodsInfo.goodsQty * goodsInfo.goodsPrice + goodsInfo.goodsDeliverPrice;
+  result += `\n주문가격: ${toCurrency(total)}원`;
+  alert(result);
+}
+
+// 선택 주문 버튼기능
+function buySelectGoods() {
+  const checkBoxs = $(document).find(`.g_pic input[name = choice_prd]`);
+  let result = `[`;
+  let total = 0;
+
+  for (var i = 0; i < checkBoxs.length; i++) {
+    if (!checkBoxs[i].checked) {
+      continue;
+    }
+    const goods = $(checkBoxs[i]).parents(`tr`)[0];
+    const goodsInfo = buyMsg(goods);
+    if (goodsInfo === undefined) {
+      continue;
+    }
+    result += goodsInfo.msg;
+    total +=
+      goodsInfo.goodsQty * goodsInfo.goodsPrice + goodsInfo.goodsDeliverPrice;
+  }
+  result += `\n]\n`;
+  result += `\n주문가격: ${toCurrency(total)}원`;
+  alert(result);
+}
+
+//구매 메세지 생성 함수
+function buyMsg(goods) {
+  let msg = "";
+  const goodsQty = Number($(goods).find(`input[name = qty]`)[0].value);
+  if (goodsQty === 0) {
+    return;
+  }
+  const goodsPrice = Number($(goods).find(`input[name = amt]`)[0].value);
+  const goodsDeliverPrice = Number(
+    $(goods).find(`input[name = deliver_amt]`)[0].value
+  );
+  const goodsCode = $(goods).find(`input[name = goods_code]`)[0].value;
+  const goodsNo = $(goods).find(`input[name = item_no]`)[0].value;
+  msg += `
+          {
+            qty : ${goodsQty}
+            amt : ${goodsPrice}
+            deliver_amt : ${goodsDeliverPrice}
+            goods_code : ${goodsCode}
+            item_no : ${goodsNo}
+          },`;
+  return { msg, goodsQty, goodsPrice, goodsDeliverPrice, goodsCode, goodsNo };
 }
