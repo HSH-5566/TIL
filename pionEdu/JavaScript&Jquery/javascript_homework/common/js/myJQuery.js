@@ -1,41 +1,44 @@
 const MAX_QTY = Number(30); // 최대수량
 const MIN_QTY = Number(1); // 최소수량
 
-// 직접 입력시 수량 검증 함수 on blur
-const qtyElements = $(document).find(`input[name=qty]`);
-for (var i = 0; i < qtyElements.length; i++) {
-  $(qtyElements[i]).on("blur", (event) => validationQty(event));
-}
+// 버튼에 기능 추가
+$(document).ready(() => {
+  // 직접 입력시 수량 검증 함수 on blur
+  const qtyElements = $(document).find(`input[name=qty]`);
+  for (var i = 0; i < qtyElements.length; i++) {
+    $(qtyElements[i]).on("blur", (event) => validationQty(event));
+  }
 
-//수량 변경 버튼 on click
-const changeBtns = $(document).find(`#tbl_cart_list tbody .modi`);
-for (var i = 0; i < changeBtns.length; i++) {
-  $(changeBtns[i]).on("click", (event) => updateOrder(event));
-}
+  //수량 변경 버튼 on click
+  const changeBtns = $(document).find(`#tbl_cart_list tbody .modi`);
+  for (var i = 0; i < changeBtns.length; i++) {
+    $(changeBtns[i]).on("click", (event) => updateOrder(event));
+  }
 
-//개별 삭제 버튼 on click
-const removeBtns = $(document).find(`#tbl_cart_list .g_ord .del`);
-for (var i = 0; i < removeBtns.length; i++) {
-  $(removeBtns[i]).on("click", (event) => removeGoods(event));
-}
+  //개별 삭제 버튼 on click
+  const removeBtns = $(document).find(`#tbl_cart_list .g_ord .del`);
+  for (var i = 0; i < removeBtns.length; i++) {
+    $(removeBtns[i]).on("click", (event) => removeGoods(event));
+  }
 
-//체크박스로 선택된 요소 삭제 버튼 on click
-const removeSelectBtn = document.querySelector(`.c_sel .btns a:nth-child(1)`);
-$(removeSelectBtn).on("click", () => removeSelectGoods());
+  //체크박스로 선택된 요소 삭제 버튼 on click
+  const removeSelectBtn = document.querySelector(`.c_sel .btns a:nth-child(1)`);
+  $(removeSelectBtn).on("click", () => removeSelectGoods());
 
-//모든 요소 주문 버튼 onclick
-const buyAllBtn = $(document).find(`.c_sel .btns a:nth-child(4)`)[0];
-$(buyAllBtn).on("click", () => buyAllGoods());
+  //모든 요소 주문 버튼 onclick
+  const buyAllBtn = $(document).find(`.c_sel .btns a:nth-child(4)`)[0];
+  $(buyAllBtn).on("click", () => buyAllGoods());
 
-//개별 주문 버튼 onclick
-const buyBtns = $(document).find(`#tbl_cart_list .g_ord a:nth-child(1)`);
-for (var i = 0; i < buyBtns.length; i++) {
-  $(buyBtns[i]).on("click", (event) => buyGoods(event));
-}
+  //개별 주문 버튼 onclick
+  const buyBtns = $(document).find(`#tbl_cart_list .g_ord a:nth-child(1)`);
+  for (var i = 0; i < buyBtns.length; i++) {
+    $(buyBtns[i]).on("click", (event) => buyGoods(event));
+  }
 
-//체크박스로 선택된 요소 주문 버튼 onclick
-const buySelectBtn = $(document).find(`.c_sel .btns a:nth-child(3)`)[0];
-$(buySelectBtn).on("click", () => buySelectGoods());
+  //체크박스로 선택된 요소 주문 버튼 onclick
+  const buySelectBtn = $(document).find(`.c_sel .btns a:nth-child(3)`)[0];
+  $(buySelectBtn).on("click", () => buySelectGoods());
+});
 
 // 0. 품절.
 // num번째 요소를 품절로 변경
@@ -117,9 +120,12 @@ function validationQty(e) {
 function updateOrder(e) {
   const goods = $(e.target).parents(`tr`);
 
-  const goodsQty = $(goods).find(`input[name = qty]`)[0].value;
-  const goodsPrice = $(goods).find(`input[name = amt]`)[0].value;
-  const resultPrice = Number(goodsQty) * Number(goodsPrice);
+  const goodsQty = Number($(goods).find(`input[name = qty]`)[0].value);
+  if (goodsQty === 0) {
+    return;
+  }
+  const goodsPrice = Number($(goods).find(`input[name = amt]`)[0].value);
+  const resultPrice = goodsQty * goodsPrice;
 
   let changePrice = $(goods).find(`.g_prc span`)[0];
   changePrice.innerHTML = `${toCurrency(resultPrice)}원`;

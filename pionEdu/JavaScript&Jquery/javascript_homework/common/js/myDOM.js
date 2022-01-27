@@ -1,43 +1,46 @@
 const MAX_QTY = Number(30); // 최대수량
 const MIN_QTY = Number(1); // 최소수량
 
-// 직접 입력시 수량 검증 함수 addEvent
-var qtyElements = document.querySelectorAll("input[name=qty]");
-for (qtyElement of qtyElements) {
-  qtyElement.addEventListener("blur", (event) => validationQty(event));
-}
+// 버튼에 기능 추가
+window.onload = () => {
+  // 직접 입력시 수량 검증 함수 addEvent
+  var qtyElements = document.querySelectorAll("input[name=qty]");
+  for (qtyElement of qtyElements) {
+    qtyElement.addEventListener("blur", (event) => validationQty(event));
+  }
 
-//수량 변경 버튼 onclick
-const changeBtns = document.querySelectorAll(`#tbl_cart_list tbody .modi`);
-for (changeBtn of changeBtns) {
-  changeBtn.onclick = (event) => updateOrder(event);
-}
+  //수량 변경 버튼 onclick
+  const changeBtns = document.querySelectorAll(`#tbl_cart_list tbody .modi`);
+  for (changeBtn of changeBtns) {
+    changeBtn.onclick = (event) => updateOrder(event);
+  }
 
-//개별 삭제 버튼 onclick
-const removeBtns = document.querySelectorAll(`#tbl_cart_list .g_ord .del`);
-for (removeBtn of removeBtns) {
-  removeBtn.onclick = (event) => removeGoods(event);
-}
+  //개별 삭제 버튼 onclick
+  const removeBtns = document.querySelectorAll(`#tbl_cart_list .g_ord .del`);
+  for (removeBtn of removeBtns) {
+    removeBtn.onclick = (event) => removeGoods(event);
+  }
 
-//개별 주문 버튼 onclick
-const buyBtns = document.querySelectorAll(
-  `#tbl_cart_list .g_ord a:nth-child(1)`
-);
-for (buyBtn of buyBtns) {
-  buyBtn.onclick = (event) => buyGoods(event);
-}
+  //개별 주문 버튼 onclick
+  const buyBtns = document.querySelectorAll(
+    `#tbl_cart_list .g_ord a:nth-child(1)`
+  );
+  for (buyBtn of buyBtns) {
+    buyBtn.onclick = (event) => buyGoods(event);
+  }
 
-//체크박스로 선택된 요소 삭제 버튼 onclick
-const removeSelectBtn = document.querySelector(`.c_sel .btns a:nth-child(1)`);
-removeSelectBtn.onclick = () => removeSelectGoods();
+  //체크박스로 선택된 요소 삭제 버튼 onclick
+  const removeSelectBtn = document.querySelector(`.c_sel .btns a:nth-child(1)`);
+  removeSelectBtn.onclick = () => removeSelectGoods();
 
-//체크박스로 선택된 요소 주문 버튼 onclick
-const buySelectBtn = document.querySelector(`.c_sel .btns a:nth-child(3)`);
-buySelectBtn.onclick = () => buySelectGoods();
+  //체크박스로 선택된 요소 주문 버튼 onclick
+  const buySelectBtn = document.querySelector(`.c_sel .btns a:nth-child(3)`);
+  buySelectBtn.onclick = () => buySelectGoods();
 
-//모든 요소 주문 버튼 onclick
-const buyAllBtn = document.querySelector(`.c_sel .btns a:nth-child(4)`);
-buyAllBtn.onclick = () => buyAllGoods();
+  //모든 요소 주문 버튼 onclick
+  const buyAllBtn = document.querySelector(`.c_sel .btns a:nth-child(4)`);
+  buyAllBtn.onclick = () => buyAllGoods();
+};
 
 // 0. 품절.
 // num번째 요소를 품절로 변경
@@ -122,9 +125,12 @@ function validationQty(e) {
 function updateOrder(e) {
   const goods = e.target.closest(`tr`);
 
-  const goodsQty = goods.querySelector("input[name = qty]").value;
-  const goodsPrice = goods.querySelector("input[name = amt]").value;
-  const resultPrice = Number(goodsQty) * Number(goodsPrice);
+  const goodsQty = Number(goods.querySelector("input[name = qty]").value);
+  if (goodsQty === 0) {
+    return;
+  }
+  const goodsPrice = Number(goods.querySelector("input[name = amt]").value);
+  const resultPrice = goodsQty * goodsPrice;
 
   let changePrice = goods.querySelector(".g_prc span");
 
