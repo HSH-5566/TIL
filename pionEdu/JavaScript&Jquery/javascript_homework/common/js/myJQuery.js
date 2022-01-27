@@ -44,8 +44,8 @@ $(document).ready(() => {
 // 0. 품절.
 // num번째 요소를 품절로 변경
 function soldOutGoods(num) {
-  const goods = $(`#tbl_cart_list tbody tr:nth-child(${num})`)[0];
-  const goodsCheck = $(goods).find(`input[name = choice_prd]`)[0];
+  const goods = $(`#tbl_cart_list tbody tr:nth-child(${num})`);
+  const goodsCheck = $(goods).find(`input[name = choice_prd]`);
   $(goodsCheck).attr("disabled", true);
 
   const goodsQty = $(goods).find(`.g_qty .qty #cnt3`)[0];
