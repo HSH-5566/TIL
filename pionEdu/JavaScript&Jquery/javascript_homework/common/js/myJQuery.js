@@ -1,38 +1,39 @@
 const MAX_QTY = Number(30); // 최대수량
 const MIN_QTY = Number(1); // 최소수량
+const currentSoldOuts = [1]; // 품절 상품 배열: 첫번째 상품 선택
 
 // 버튼에 기능 추가
 $(document).ready(() => {
   // 직접 입력시 수량 검증 함수 on blur
   const qtyElements = $(document).find(`input[name=qty]`);
   for (var i = 0; i < qtyElements.length; i++) {
-    $(qtyElements[i]).on("blur", (event) => validationQty(event));
+    $(qtyElements[i]).on("blur", (e) => validationQty(e));
   }
 
   //수량 변경 버튼 on click
   const changeBtns = $(document).find(`#tbl_cart_list tbody .modi`);
   for (var i = 0; i < changeBtns.length; i++) {
-    $(changeBtns[i]).on("click", (event) => updateOrder(event));
-  }
-
-  //개별 삭제 버튼 on click
-  const removeBtns = $(document).find(`#tbl_cart_list .g_ord .del`);
-  for (var i = 0; i < removeBtns.length; i++) {
-    $(removeBtns[i]).on("click", (event) => removeGoods(event));
+    $(changeBtns[i]).on("click", (e) => updateOrder(e));
   }
 
   //체크박스로 선택된 요소 삭제 버튼 on click
   const removeSelectBtn = $(document).find(`.c_sel .btns a:nth-child(1)`)[0];
   $(removeSelectBtn).on("click", () => removeSelectGoods());
 
-  //모든 요소 주문 버튼 onclick
+  //모든 요소 주문 버튼 on click
   const buyAllBtn = $(document).find(`.c_sel .btns a:nth-child(4)`)[0];
   $(buyAllBtn).on("click", () => buyAllGoods());
 
-  //개별 주문 버튼 onclick
+  //개별 주문 버튼 on click
   const buyBtns = $(document).find(`#tbl_cart_list .g_ord a:nth-child(1)`);
   for (var i = 0; i < buyBtns.length; i++) {
-    $(buyBtns[i]).on("click", (event) => buyGoods(event));
+    $(buyBtns[i]).on("click", (e) => buyGoods(e));
+  }
+
+  //개별 삭제 버튼 on click
+  const removeBtns = $(document).find(`#tbl_cart_list .g_ord .del`);
+  for (var i = 0; i < removeBtns.length; i++) {
+    $(removeBtns[i]).on("click", (e) => removeGoods(e));
   }
 
   //체크박스로 선택된 요소 주문 버튼 onclick
@@ -45,25 +46,23 @@ $(document).ready(() => {
 function soldOutGoods(num) {
   const goods = $(`#tbl_cart_list tbody tr:nth-child(${num})`)[0];
   const goodsCheck = $(goods).find(`input[name = choice_prd]`)[0];
-  goodsCheck.disabled = true;
+  $(goodsCheck).attr("disabled", true);
 
   const goodsQty = $(goods).find(`.g_qty .qty #cnt3`)[0];
   const SOLD_OUT_VALUE = Number(0);
   goodsQty.setAttribute("value", SOLD_OUT_VALUE);
-  goodsQty.disabled = true;
+  $(goodsQty).attr("disabled", true);
 
   const goodsQtyPlusBtn = $(goods).find(`.g_qty .qty .plus`)[0];
   const goodsQtyMinusBtn = $(goods).find(`.g_qty .qty .minus`)[0];
-  goodsQtyPlusBtn.onclick = null;
-  goodsQtyMinusBtn.onclick = null;
+  $(goodsQtyPlusBtn).removeAttr(`onclick`);
+  $(goodsQtyMinusBtn).removeAttr(`onclick`);
 
   const goodsChangeBtn = $(goods).find(`.modi`)[0];
-  goodsChangeBtn.onclick = null;
-  // $(goodsChangeBtn).off();
-  // $(document).off("click", goodsChangeBtn, updateOrder);
+  $(goodsChangeBtn).off("click");
 
   const goodsBuyBtn = $(goods).find(`.g_ord > a`)[0];
-  goodsBuyBtn.onclick = null;
+  $(goodsBuyBtn).off("click");
 
   const goodsPrice = $(goods).find(`.g_prc`)[0];
   const deliveryPrice = $(goods).find(`.g_dvr`)[0];
@@ -72,8 +71,10 @@ function soldOutGoods(num) {
   deliveryPrice.innerHTML = GOODS_SOLD_OUT;
 }
 
-//첫번째 상품 품절
-soldOutGoods(1);
+//품절 상품 배열의 상품들 품절
+for (goods of currentSoldOuts) {
+  soldOutGoods(goods);
+}
 
 // 1. 수량
 //수량더하기
@@ -125,7 +126,6 @@ function updateOrder(e) {
   const goods = $(e.target).parents(`tr`);
 
   const goodsQty = Number($(goods).find(`input[name = qty]`)[0].value);
-  console.log(goodsQty);
   if (goodsQty === 0) {
     return;
   }
@@ -205,7 +205,6 @@ function removeSelectGoods() {
 //3. 주문
 // 전체 주문버튼 기능 qty,amt,deliver_amt,goods_code,item_no
 function buyAllGoods() {
-  // const goodsAll = document.querySelectorAll(`#tbl_cart_list > tbody tr`);
   const goodsAll = $(document).find(`#tbl_cart_list > tbody tr`);
   let result = `[`;
   for (var i = 0; i < goodsAll.length; i++) {
@@ -242,7 +241,6 @@ function buySelectGoods() {
   const checkBoxs = $(document).find(`.g_pic input[name = choice_prd]`);
   let result = `[`;
   let total = 0;
-
   for (var i = 0; i < checkBoxs.length; i++) {
     if (!checkBoxs[i].checked) {
       continue;

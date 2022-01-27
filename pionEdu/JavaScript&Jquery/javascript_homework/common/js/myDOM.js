@@ -1,5 +1,6 @@
 const MAX_QTY = Number(30); // 최대수량
 const MIN_QTY = Number(1); // 최소수량
+const currentSoldOuts = [1]; // 품절 상품 배열: 첫번째 상품 선택
 
 // 버튼에 기능 추가
 window.onload = () => {
@@ -74,7 +75,11 @@ function soldOutGoods(num) {
   goodsPrice.innerHTML = GOODS_SOLD_OUT;
   deliveryPrice.innerHTML = GOODS_SOLD_OUT;
 }
-soldOutGoods(1);
+
+//품절 상품 배열의 상품들 품절
+for (goods of currentSoldOuts) {
+  soldOutGoods(goods);
+}
 
 // 1. 수량
 //수량더하기
@@ -169,7 +174,7 @@ function updateAllOrder() {
 updateAllOrder();
 
 //2. 선택
-// 전체 체크박스 기능
+// 전체 체크박스 기능 - 품절 상품 제외하고 모두 선택
 function checkAll(checkedId) {
   const allCheckBox = document.querySelector(`#${checkedId}`);
   const checkBoxs = document.querySelectorAll(
