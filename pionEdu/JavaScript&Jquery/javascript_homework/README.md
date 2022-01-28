@@ -45,3 +45,55 @@ deliver_amt
 ],
 
 주문 가격 : 선택된 상품 주문 가격 출력.
+
+DOM : myDOM.js
+JQuery : myQuery.js
+cart_homework.html의 773, 774line에 script 추가
+
+0. 품절
+
+- soldOutGoods(num) : currentSoldOuts 배열에 있는 상품리스트의 번호를 받아 품절 처리
+
+1. 수량
+
+- qtyPlus(element) : 수량 증가, 최대 수량은 MAX_QTY(30)
+- qtyMinus(element) : 수량 감소, 최소 수량은 MIN_QTY(1)
+- updateOrder(e) : 개별 주문 금액 계산 및 리페인팅
+- updateAllOrder() : 전체 주문 금액 계산 및 리페인팅
+
+2. 선택
+
+- checkAll(checkedId) : 전체 선택 클릭시 다른 체크박스 모두 체크 / 단, 품절 상품은 제외
+- removeGoods(e) : 상품 개별 삭제
+- removeSelectGoods() : 선택된 상품 삭제
+
+3. 주문
+
+- buyAllGoods() : 모든 상품 주문 / 단, 품절 상품은 제외
+- buyGoods(e) : 상품 개별 주문
+- buySelectGoods() : 선택된 상품 주문 / 단, 선택된 상품이 없을경우 [선택된 상품이 없습니다!]경고문구 출력
+- buyMsg(goods) : 주문 상품의 정보를 Object로 return { msg, goodsQty, goodsPrice, goodsDeliverPrice, goodsCode, goodsNo }
+- 주문 출력 양식
+  [
+  {
+  qty : 1
+  amt : 860000
+  deliver_amt : 0
+  goods_code : 1000000001
+  item_no : 2000000000
+  },
+  {
+  qty : 1
+  amt : 358000
+  deliver_amt : 3000
+  goods_code : 1000000002
+  item_no : 2000000000
+  },
+  ]
+
+주문가격: 1,221,000원
+
+4. 그외 추가 함수
+
+- validationQty(e) : 직접 수량 입력시 최대, 최소 수량 확인
+- checkNumber(e) : 직접 수량 입력시 숫자인지 확인 / 숫자 또는 backspace, left arrow, right arrow만 가능
