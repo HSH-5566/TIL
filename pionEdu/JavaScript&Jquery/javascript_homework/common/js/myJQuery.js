@@ -2,44 +2,42 @@ const MAX_QTY = Number(30); // 최대수량
 const MIN_QTY = Number(1); // 최소수량
 const currentSoldOuts = [1]; // 품절 상품 배열: 첫번째 상품 선택
 
-// 버튼에 기능 추가
-$(document).ready(() => {
-  // 직접 입력시 수량 검증 함수 on blur
-  const qtyElements = $(document).find(`input[name=qty]`);
-  qtyElements.each(function () {
-    $(this).on("blur", (e) => validationQty(e));
-  });
-
-  //수량 변경 버튼 on click
-  const changeBtns = $(document).find(`#tbl_cart_list tbody .modi`);
-  changeBtns.each(function () {
-    $(this).on("click", (e) => updateOrder(e));
-  });
-
-  //체크박스로 선택된 요소 삭제 버튼 on click
-  const removeSelectBtn = $(document).find(`.c_sel .btns a:nth-child(1)`)[0];
-  $(removeSelectBtn).on("click", () => removeSelectGoods());
-
-  //모든 요소 주문 버튼 on click
-  const buyAllBtn = $(document).find(`.c_sel .btns a:nth-child(4)`)[0];
-  $(buyAllBtn).on("click", () => buyAllGoods());
-
-  //개별 주문 버튼 on click
-  const buyBtns = $(document).find(`#tbl_cart_list .g_ord a:nth-child(1)`);
-  buyBtns.each(function () {
-    $(this).on("click", (e) => buyGoods(e));
-  });
-
-  //개별 삭제 버튼 on click
-  const removeBtns = $(document).find(`#tbl_cart_list .g_ord .del`);
-  removeBtns.each(function () {
-    $(this).on("click", (e) => removeGoods(e));
-  });
-
-  //체크박스로 선택된 요소 주문 버튼 onclick
-  const buySelectBtn = $(document).find(`.c_sel .btns a:nth-child(3)`)[0];
-  $(buySelectBtn).on("click", () => buySelectGoods());
+// 직접 입력시 수량 검증 함수 on blur & 숫자인지 체크 함수 keydown
+const qtyElements = $(document).find(`input[name=qty]`);
+qtyElements.each(function () {
+  $(this).on("blur", (e) => validationQty(e));
+  $(this).keydown((e) => checkNumber(e));
 });
+
+//수량 변경 버튼 on click
+const changeBtns = $(document).find(`#tbl_cart_list tbody .modi`);
+changeBtns.each(function () {
+  $(this).on("click", (e) => updateOrder(e));
+});
+
+//체크박스로 선택된 요소 삭제 버튼 on click
+const removeSelectBtn = $(document).find(`.c_sel .btns a:nth-child(1)`)[0];
+$(removeSelectBtn).on("click", () => removeSelectGoods());
+
+//모든 요소 주문 버튼 on click
+const buyAllBtn = $(document).find(`.c_sel .btns a:nth-child(4)`)[0];
+$(buyAllBtn).on("click", () => buyAllGoods());
+
+//개별 주문 버튼 on click
+const buyBtns = $(document).find(`#tbl_cart_list .g_ord a:nth-child(1)`);
+buyBtns.each(function () {
+  $(this).on("click", (e) => buyGoods(e));
+});
+
+//개별 삭제 버튼 on click
+const removeBtns = $(document).find(`#tbl_cart_list .g_ord .del`);
+removeBtns.each(function () {
+  $(this).on("click", (e) => removeGoods(e));
+});
+
+//체크박스로 선택된 요소 주문 버튼 onclick
+const buySelectBtn = $(document).find(`.c_sel .btns a:nth-child(3)`)[0];
+$(buySelectBtn).on("click", () => buySelectGoods());
 
 // 0. 품절.
 // num번째 요소를 품절로 변경
@@ -67,8 +65,8 @@ function soldOutGoods(num) {
   const goodsPrice = $(goods).find(`.g_prc`)[0];
   const deliveryPrice = $(goods).find(`.g_dvr`)[0];
   const GOODS_SOLD_OUT = `<span>품절</span>`;
-  goodsPrice.innerHTML = GOODS_SOLD_OUT;
-  deliveryPrice.innerHTML = GOODS_SOLD_OUT;
+  $(goodsPrice).html(GOODS_SOLD_OUT);
+  $(deliveryPrice).html(GOODS_SOLD_OUT);
 }
 
 //품절 상품 배열의 상품들 품절
@@ -119,6 +117,14 @@ function validationQty(e) {
     e.target.value = MAX_QTY;
     updateOrder(e);
   }
+}
+
+// 직접 수량 입력 시 숫자인지 체크
+function checkNumber(e) {
+  if (e.key >= 0 && e.key <= 9) {
+    return true;
+  }
+  return false;
 }
 
 //개별 주문금액 체크해 리페인팅
