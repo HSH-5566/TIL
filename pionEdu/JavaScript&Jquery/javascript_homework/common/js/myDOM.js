@@ -126,7 +126,7 @@ function validationQty(e) {
 
 // 직접 수량 입력 시 숫자인지 체크
 function checkNumber(e) {
-  if (e.key >= 0 && e.key <= 9) {
+  if ((e.key >= 0 && e.key <= 9) || e.keyCode == 8) {
     return true;
   }
   return false;

@@ -121,7 +121,7 @@ function validationQty(e) {
 
 // 직접 수량 입력 시 숫자인지 체크
 function checkNumber(e) {
-  if (e.key >= 0 && e.key <= 9) {
+  if ((e.key >= 0 && e.key <= 9) || e.keyCode == 8) {
     return true;
   }
   return false;
@@ -138,8 +138,8 @@ function updateOrder(e) {
   const goodsPrice = Number($(goods).find(`input[name = amt]`)[0].value);
   const resultPrice = goodsQty * goodsPrice;
 
-  let changePrice = $(goods).find(`.g_prc span`)[0];
-  changePrice.innerHTML = `${toCurrency(resultPrice)}원`;
+  const changePrice = $(goods).find(`.g_prc span`);
+  changePrice.text(`${toCurrency(resultPrice)}원`);
   updateAllOrder();
 }
 
@@ -163,14 +163,12 @@ function updateAllOrder() {
     deliverAllPrice += deliverPrice;
   });
   resultPrice = goodsAllPrice + deliverAllPrice;
-  const orderSum = $(document).find(`#tbl_cart_list #ord_amt`)[0];
-  const orderDeliverSum = $(document).find(
-    `#tbl_cart_list #deliver_total_amt`
-  )[0];
-  const total = $(document).find(`#tbl_cart_list #total_amt`)[0];
-  orderSum.innerHTML = toCurrency(goodsAllPrice);
-  orderDeliverSum.innerHTML = toCurrency(deliverAllPrice);
-  total.innerHTML = toCurrency(resultPrice);
+  const orderSum = $(document).find(`#tbl_cart_list #ord_amt`);
+  const orderDeliverSum = $(document).find(`#tbl_cart_list #deliver_total_amt`);
+  const total = $(document).find(`#tbl_cart_list #total_amt`);
+  orderSum.text(toCurrency(goodsAllPrice));
+  orderDeliverSum.text(toCurrency(deliverAllPrice));
+  total.text(toCurrency(resultPrice));
 }
 
 //초기 최종 금액 출력
