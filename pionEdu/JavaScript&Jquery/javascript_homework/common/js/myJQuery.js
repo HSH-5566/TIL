@@ -77,51 +77,57 @@ for (goods of currentSoldOuts) {
 // 1. 수량
 //수량더하기
 function qtyPlus(element) {
-  var qtyElement = $(element).parent().children(`input[name=qty]`)[0];
-  var qtyValue = Number(qtyElement.value);
+  var qtyElement = $(element).parent().children(`input[name=qty]`);
+  var qtyValue = Number(qtyElement.val());
 
   //최대 수량 30
   if (qtyValue + 1 > MAX_QTY) {
     alert("최대 수량입니다.");
-    qtyElement.value = MAX_QTY;
+    qtyElement.val(MAX_QTY);
     return;
   }
   qtyValue++;
-  qtyElement.value = qtyValue;
+  qtyElement.val(qtyValue);
 }
 
 // 수량빼기
 function qtyMinus(element) {
-  var qtyElement = $(element).parent().children(`input[name=qty]`)[0];
-  var qtyValue = Number(qtyElement.value);
+  var qtyElement = $(element).parent().children(`input[name=qty]`);
+  var qtyValue = Number(qtyElement.val());
 
   //최하 수량 1
   if (qtyValue - 1 < MIN_QTY) {
     alert("최소 수량입니다.");
-    qtyElement.value = MIN_QTY;
+    qtyElement.val(MIN_QTY);
     return;
   }
 
   qtyValue--;
-  qtyElement.value = qtyValue;
+  qtyElement.val(qtyValue);
 }
 
 // 직접 수량 입력 시 수량 검증 함수 blur 이용
 function validationQty(e) {
-  if (e.target.value < MIN_QTY) {
+  const goodsQty = $(e.target);
+  if (goodsQty.val() < MIN_QTY) {
     alert(`최소 수량은 ${MIN_QTY}입니다.`);
-    e.target.value = MIN_QTY;
+    goodsQty.val(MIN_QTY);
     updateOrder(e);
-  } else if (e.target.value > MAX_QTY) {
+  } else if (goodsQty.val() > MAX_QTY) {
     alert(`최대 수량은 ${MAX_QTY}입니다.`);
-    e.target.value = MAX_QTY;
+    goodsQty.val(MAX_QTY);
     updateOrder(e);
   }
 }
 
 // 직접 수량 입력 시 숫자인지 체크
 function checkNumber(e) {
-  if ((e.key >= 0 && e.key <= 9) || e.keyCode == 8) {
+  if (
+    (e.key >= 0 && e.key <= 9) ||
+    e.keyCode == 8 ||
+    e.keyCode == 37 ||
+    e.keyCode == 39
+  ) {
     return true;
   }
   return false;
@@ -131,11 +137,11 @@ function checkNumber(e) {
 function updateOrder(e) {
   const goods = $(e.target).parents(`tr`);
 
-  const goodsQty = Number($(goods).find(`input[name = qty]`)[0].value);
+  const goodsQty = Number($(goods).find(`input[name = qty]`).val());
   if (goodsQty === 0) {
     return;
   }
-  const goodsPrice = Number($(goods).find(`input[name = amt]`)[0].value);
+  const goodsPrice = Number($(goods).find(`input[name = amt]`).val());
   const resultPrice = goodsQty * goodsPrice;
 
   const changePrice = $(goods).find(`.g_prc span`);
@@ -151,13 +157,13 @@ function updateAllOrder() {
   let resultPrice = 0;
 
   goodsAll.each(function () {
-    const goodsQty = $(this).find(`input[name = qty]`)[0].value;
+    const goodsQty = $(this).find(`input[name = qty]`).val();
     if (Number(goodsQty) === 0) {
       return;
     }
-    const goodsPrice = $(this).find(`input[name = amt]`)[0].value;
+    const goodsPrice = $(this).find(`input[name = amt]`).val();
     const deliverPrice = Number(
-      $(this).find(`input[name = deliver_amt]`)[0].value
+      $(this).find(`input[name = deliver_amt]`).val()
     );
     goodsAllPrice += goodsQty * goodsPrice;
     deliverAllPrice += deliverPrice;
@@ -225,7 +231,7 @@ function buyAllGoods() {
   });
 
   result += `\n]\n`;
-  const total = $(document).find(`#tbl_cart_list #total_amt`)[0].innerHTML;
+  const total = $(document).find(`#tbl_cart_list #total_amt`).html();
   result += `\n주문가격: ${total}원`;
   alert(result);
 }
@@ -274,16 +280,16 @@ function buySelectGoods() {
 //구매 메세지 생성 함수
 function buyMsg(goods) {
   let msg = "";
-  const goodsQty = Number($(goods).find(`input[name = qty]`)[0].value);
+  const goodsQty = Number($(goods).find(`input[name = qty]`).val());
   if (goodsQty === 0) {
     return;
   }
-  const goodsPrice = Number($(goods).find(`input[name = amt]`)[0].value);
+  const goodsPrice = Number($(goods).find(`input[name = amt]`).val());
   const goodsDeliverPrice = Number(
-    $(goods).find(`input[name = deliver_amt]`)[0].value
+    $(goods).find(`input[name = deliver_amt]`).val()
   );
-  const goodsCode = $(goods).find(`input[name = goods_code]`)[0].value;
-  const goodsNo = $(goods).find(`input[name = item_no]`)[0].value;
+  const goodsCode = $(goods).find(`input[name = goods_code]`).val();
+  const goodsNo = $(goods).find(`input[name = item_no]`).val();
   msg += `
           {
             qty : ${goodsQty}
