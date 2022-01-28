@@ -8,10 +8,11 @@ const currentSoldOuts = [1]; // 품절 상품 배열: 첫번째 상품 선택
 // 직접 입력시 수량 검증 함수 on blur & 숫자인지 체크 함수 keydown
 const qtyElements = $(`input[name=qty]`);
 //TODO: 다중이벤트 처리 시 방법.
-// 이벤트가 많을 경우에는 개별로 처리하는게 좋으나
+// 이벤트가 많을 경우에는 개별로 처리하는게 좋으나 가독성?
 // 아래와 같은 방법도 있음.
-qtyElements.on("blur keydown", function (e) {
+qtyElements.on("blur keydown", (e) => {
   const eventType = e.type;
+  console.log(eventType);
   if (eventType == "blur") {
     validationQty(e);
   } else {
@@ -44,7 +45,7 @@ removeBtns.click(removeGoods);
 
 //체크박스로 선택된 요소 주문 버튼 onclick
 const buySelectBtn = $(`.c_sel .btns a:nth-child(3)`);
-$(buySelectBtn).on("click", () => buySelectGoods());
+buySelectBtn.click(buySelectGoods);
 
 // 0. 품절.
 // num번째 요소를 품절로 변경
@@ -54,25 +55,28 @@ function soldOutGoods(num) {
   $(goodsCheck).attr("disabled", true);
 
   //TODO : 이미 goods 값이 jquery 객체로 반환 되기 때문에 또다시 $(goods) 로 다시 조회할 필요 없음.
-  const goodsQty = goods.find(`.g_qty .qty #cnt3`)[0];
+  const goodsQty = goods.find(`.g_qty .qty #cnt3`);
   const SOLD_OUT_VALUE = Number(0);
   //TODO setAttribute 한 이유는??? .attr("value", '값')으로 설정 가능.
-  goodsQty.setAttribute("value", SOLD_OUT_VALUE);
+  // -> js를 자주이용하다보니 setAttribute 이용함
+  // -> 생각해보니 JQuery니까 쓸필요가 없었네욤,,,,
+
+  $(goodsQty).attr("value", SOLD_OUT_VALUE);
   $(goodsQty).attr("disabled", true);
 
-  const goodsQtyPlusBtn = goods.find(`.g_qty .qty .plus`)[0];
-  const goodsQtyMinusBtn = goods.find(`.g_qty .qty .minus`)[0];
+  const goodsQtyPlusBtn = goods.find(`.g_qty .qty .plus`);
+  const goodsQtyMinusBtn = goods.find(`.g_qty .qty .minus`);
   $(goodsQtyPlusBtn).removeAttr(`onclick`);
   $(goodsQtyMinusBtn).removeAttr(`onclick`);
 
-  const goodsChangeBtn = goods.find(`.modi`)[0];
+  const goodsChangeBtn = goods.find(`.modi`);
   $(goodsChangeBtn).off("click");
 
   const goodsBuyBtn = goods.find(`.g_ord > a`)[0];
   $(goodsBuyBtn).off("click");
 
-  const goodsPrice = goods.find(`.g_prc`)[0];
-  const deliveryPrice = goods.find(`.g_dvr`)[0];
+  const goodsPrice = goods.find(`.g_prc`);
+  const deliveryPrice = goods.find(`.g_dvr`);
   const GOODS_SOLD_OUT = `<span>품절</span>`;
   $(goodsPrice).html(GOODS_SOLD_OUT);
   $(deliveryPrice).html(GOODS_SOLD_OUT);
@@ -146,14 +150,14 @@ function checkNumber(e) {
 function updateOrder(e) {
   const goods = $(e.target).parents(`tr`);
 
-  const goodsQty = Number($(goods).find(`input[name = qty]`).val());
+  const goodsQty = Number(goods.find(`input[name = qty]`).val());
   if (goodsQty === 0) {
     return;
   }
-  const goodsPrice = Number($(goods).find(`input[name = amt]`).val());
+  const goodsPrice = Number(goods.find(`input[name = amt]`).val());
   const resultPrice = goodsQty * goodsPrice;
 
-  const changePrice = $(goods).find(`.g_prc span`);
+  const changePrice = goods.find(`.g_prc span`);
   changePrice.text(`${toCurrency(resultPrice)}원`);
   updateAllOrder();
 }
@@ -247,7 +251,7 @@ function buyAllGoods() {
 
 //주황색 개별 주문버튼
 function buyGoods(e) {
-  const goods = $(e.target).parents(`tr`)[0];
+  const goods = $(e.target).parents(`tr`);
   let result = "[";
   const goodsInfo = buyMsg(goods);
   if (goodsInfo === undefined) {
