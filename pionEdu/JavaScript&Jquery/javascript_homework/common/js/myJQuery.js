@@ -273,6 +273,10 @@ function buySelectGoods() {
   });
 
   result += `\n]\n`;
+  if (result === "[\n]\n") {
+    alert("선택된 상품이 없습니다!");
+    return;
+  }
   result += `\n주문가격: ${toCurrency(total)}원`;
   alert(result);
 }
